@@ -7,6 +7,23 @@
 <ion-content>
   <ion-tabs>
     <!-- Tab bar -->
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="infos" routerLink="/compte-infos">
+        <ion-label>Mes Infos</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="scans" routerLink="/compte-scans">
+        <ion-label>Mes Scans</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="deals" routerLink="/compte-deals">
+        <ion-label>Mes Deals</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
+
+<ion-content>
+  <ion-tabs>
+    <!-- Tab bar -->
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="deals" routerLink="/deals">
         <ion-icon name="pricetags"></ion-icon>
