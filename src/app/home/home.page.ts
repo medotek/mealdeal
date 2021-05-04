@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { HomeService } from '../services/home.service';
 
 @Component({
   selector: 'app-home',
@@ -11,15 +12,19 @@ export class HomePage {
   scannedBarCode: {};
   barcodeScannerOptions: BarcodeScannerOptions;
 
-  constructor(private scanner: BarcodeScanner) {
+  constructor(private scanner: BarcodeScanner, private homeService: HomeService) {
 
     this.encodedData = "Programming isn't about what you know";
-    
+
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
     };
-    
+
+    this.homeService.getFood().subscribe( res => {
+      console.log(res);
+    })
+
   }
 
   scanBRcode() {
