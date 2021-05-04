@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "445632181932",
+    "firebase_url": "https://mealdeal-lpsmin-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "mealdeal-lpsmin",
+    "storage_bucket": "mealdeal-lpsmin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445632181932:android:21385ff2ad0d03048f1109",
+        "android_client_info": {
+          "package_name": "com.lpsmin.mealdeal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445632181932-an33hspsfbciqjrdikdetra10n9re80t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2jU8bJBzql0y4SsEoagLI3yulhZ9Fn-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445632181932-an33hspsfbciqjrdikdetra10n9re80t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
