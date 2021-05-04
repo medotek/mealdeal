@@ -17,4 +17,25 @@
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
+
 </ion-content>
+
+
+<ion-tabs>
+  <!-- Tab bar -->
+  <ion-tab-bar slot="deals">
+    <ion-tab-button tab="deals" routerLink="/deals">
+      <ion-icon name="pricetags" color="danger"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="search" routerLink="/info-produits">
+      <ion-icon name="search"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="map" routerLink="/map">
+      <ion-icon name="pin"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="account" routerLink="/compte-infos">
+      <ion-icon name="person"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+
