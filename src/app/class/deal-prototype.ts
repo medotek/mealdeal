@@ -1,6 +1,7 @@
 import { Deal } from './../interfaces/deal';
 export class DealPrototype implements Deal {
     title: string;
+    product_sku: string;
     price: number;
     creation: Date;
     expired: boolean;
@@ -13,6 +14,7 @@ export class DealPrototype implements Deal {
 
     constructor(
         title: string,
+        product_sku: string,
         price: number,
         creation: Date,
         expired: boolean,
@@ -21,9 +23,10 @@ export class DealPrototype implements Deal {
         description?: string,
         old_price?: number,
         sale_percent?: number,
-        image_id?: string,
+        image_id?: string
     ) {
         this.title = title;
+        this.product_sku = product_sku;
         this.price = price;
         this.creation = creation;
         this.expired = expired;
