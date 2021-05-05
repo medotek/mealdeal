@@ -1,3 +1,5 @@
+import { Deal } from './../interfaces/deal';
+import { DaoService } from './../services/dao.service';
 import { Component } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { HomeService } from '../services/home.service';
@@ -12,7 +14,7 @@ export class HomePage {
   scannedBarCode: {};
   barcodeScannerOptions: BarcodeScannerOptions;
 
-  constructor(private scanner: BarcodeScanner, private homeService: HomeService) {
+  constructor(private scanner: BarcodeScanner, private homeService: HomeService, private dao: DaoService) {
 
     this.encodedData = "Programming isn't about what you know";
 
@@ -24,6 +26,27 @@ export class HomePage {
     this.homeService.searchProduct('737628064502').subscribe( res => {
       console.log(res);
     })
+
+    if(true) {
+      let deal: Deal = {
+        title: "Un super deal",
+        price: 5.00,
+        creation: new Date(),
+        expired: false,
+        store_id: "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
+        vote: 0,
+        description: "Une super description qui est étrangement très générique",
+        old_price: 10.00,
+        sale_percent: 50,
+        image_id: "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
+      };
+
+      this.dao.createDeal(deal);
+
+      this.dao.getAllDeals().snapshotChanges().subscribe(res => {
+        console.log(res);
+      })
+    }
 
   }
 
