@@ -14,7 +14,7 @@ export class HomePage {
 
   constructor(private scanner: BarcodeScanner, private homeService: HomeService) {
 
-    this.encodedData = "Programming isn't about what you know";
+    this.encodedData = 'Programming isn\'t about what you know';
 
     this.barcodeScannerOptions = {
       showTorchButton: true,
@@ -23,7 +23,7 @@ export class HomePage {
 
     this.homeService.searchProduct('737628064502').subscribe( res => {
       console.log(res);
-    })
+    });
 
   }
 
@@ -35,7 +35,7 @@ export class HomePage {
       });
       this.homeService.searchProduct(this.scannedBarCode).subscribe( res => {
         console.log(res);
-      })
+      });
   }
 
   generateBarCode() {
