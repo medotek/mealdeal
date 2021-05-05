@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
-import { HomeService } from '../services/home.service';
-import {Welcome as API} from "../interfaces/welcome";
+import {Component} from '@angular/core';
+import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
+import {HomeService} from '../services/home.service';
+import {Welcome as API} from '../interfaces/welcome';
+import {Product} from '../interfaces/product';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,9 +11,12 @@ import {Welcome as API} from "../interfaces/welcome";
 })
 export class HomePage {
   encodedData: any;
-  scannedBarCode: {};
+  scannedBarCode: string;
   barcodeScannerOptions: BarcodeScannerOptions;
   public response: API;
+  public monProduit: Product;
+  public oui = false;
+
   constructor(private scanner: BarcodeScanner, private homeService: HomeService) {
 
     this.encodedData = 'Programming isn\'t about what you know';
@@ -21,9 +26,9 @@ export class HomePage {
       showFlipCameraButton: true
     };
 
-    this.homeService.searchProduct('737628064502').subscribe( (data: API)  => {
-      this.response = data ;
-  // récupère uniquement le tableau product
+    this.homeService.searchProduct('5410041040807').subscribe((data: API) => {
+      this.response = data;
+      // récupère uniquement le tableau product
       console.log(this.response.product);
     });
 
@@ -31,23 +36,24 @@ export class HomePage {
 
   scanBRcode() {
     this.scanner.scan().then(res => {
-        this.scannedBarCode = res;
-      }).catch(err => {
-        alert(err);
+      this.scannedBarCode = res.text;
+
+      this.homeService.searchProduct(this.scannedBarCode).subscribe((data: API) => {
+        this.response = data;
+        this.monProduit = this.response.product;
+        this.oui = true;
       });
-      this.homeService.searchProduct(this.scannedBarCode).subscribe( res => {
-        console.log(res);
-      });
+    });
   }
 
   generateBarCode() {
     this.scanner.encode(this.scanner.Encode.TEXT_TYPE, this.encodedData).then(
-        res => {
-          alert(res);
-          this.encodedData = res;
-        }, error => {
-          alert(error);
-        }
-      );
+      res => {
+        alert(res);
+        this.encodedData = res;
+      }, error => {
+        alert(error);
+      }
+    );
   }
 }
