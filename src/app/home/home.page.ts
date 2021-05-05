@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { HomeService } from '../services/home.service';
 
-=======
-import { BarcodeScanner, BarcodeScannerOptions } from "@ionic-native/barcode-scanner/ngx";
->>>>>>> abb4e10c9178ea16b84710d31c6e695881259d60
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -25,7 +21,7 @@ export class HomePage {
       showFlipCameraButton: true
     };
 
-    this.homeService.getFood().subscribe( res => {
+    this.homeService.searchProduct('737628064502').subscribe( res => {
       console.log(res);
     })
 
@@ -37,6 +33,9 @@ export class HomePage {
       }).catch(err => {
         alert(err);
       });
+      this.homeService.searchProduct(this.scannedBarCode).subscribe( res => {
+        console.log(res);
+      })
   }
 
   generateBarCode() {

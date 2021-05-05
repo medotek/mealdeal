@@ -11,7 +11,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'geo-loc',
+    loadChildren: () => import('./geo-loc/geo-loc.module').then( m => m.GeoLocPageModule)
   },
+
 ];
 
 @NgModule({
