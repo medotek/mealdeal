@@ -1,3 +1,4 @@
+import { DealPrototype } from './../class/deal-prototype';
 import { Deal } from './../interfaces/deal';
 import { DaoService } from './../services/dao.service';
 import { Component } from '@angular/core';
@@ -28,18 +29,19 @@ export class HomePage {
     })
 
     if(false) {
-      let deal: Deal = {
-        title: "Un super deal",
-        price: 5.00,
-        creation: new Date(),
-        expired: false,
-        store_id: "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
-        vote: 0,
-        description: "Une super description qui est étrangement très générique",
-        old_price: 10.00,
-        sale_percent: 50,
-        image_id: "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
-      };
+      let deal: DealPrototype = new DealPrototype(
+        "Un super deal",
+        "3017620422003",
+        5.00,
+        new Date(),
+        false,
+        "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
+        0,
+        "Une super description qui est étrangement très générique",
+        10.00,
+        50,
+        "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
+      );
 
       this.dao.createDeal(deal);
 
