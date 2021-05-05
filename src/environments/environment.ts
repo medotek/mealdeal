@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyC2jU8bJBzql0y4SsEoagLI3yulhZ9Fn-4",
+    authDomain: "mealdeal-lpsmin.firebaseapp.com",
+    databaseURL: "https://mealdeal-lpsmin-default-rtdb.europe-west1.firebasedatabase.app/",
+    projectId: "mealdeal-lpsmin",
+    storageBucket: "mealdeal-lpsmin.appspot.com",
+    messagingSenderId: "400540865456",
+    appId: "1:445632181932:android:21385ff2ad0d03048f1109"
+  }
 };
 
 /*
