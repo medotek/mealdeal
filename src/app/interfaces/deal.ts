@@ -1,5 +1,6 @@
 export interface Deal {
     title: string;
+    product_sku: string; //code-barre
     price: number;
     creation: Date;
     expired: boolean;
