@@ -13,7 +13,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database'; // pour mani
 import { AngularFireStorageModule } from '@angular/fire/storage'; // pour accéder aux fonction de stockage et de récupération des fichiers
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import {environment} from "../environments/environment";
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
