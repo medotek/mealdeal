@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { HomeService } from '../services/home.service';
-
+import {Welcome as API} from "../interfaces/welcome";
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -11,19 +11,21 @@ export class HomePage {
   encodedData: any;
   scannedBarCode: {};
   barcodeScannerOptions: BarcodeScannerOptions;
-
+  public response: API;
   constructor(private scanner: BarcodeScanner, private homeService: HomeService) {
 
-    this.encodedData = "Programming isn't about what you know";
+    this.encodedData = 'Programming isn\'t about what you know';
 
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
     };
 
-    this.homeService.searchProduct('737628064502').subscribe( res => {
-      console.log(res);
-    })
+    this.homeService.searchProduct('737628064502').subscribe( (data: API)  => {
+      this.response = data ;
+  // récupère uniquement le tableau product
+      console.log(this.response.product);
+    });
 
   }
 
@@ -35,7 +37,7 @@ export class HomePage {
       });
       this.homeService.searchProduct(this.scannedBarCode).subscribe( res => {
         console.log(res);
-      })
+      });
   }
 
   generateBarCode() {
