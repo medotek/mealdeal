@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -49,10 +49,10 @@ const routes: Routes = [
     loadChildren: () => import('./produits-alternatifs/produits-alternatifs.module').then( m => m.ProduitsAlternatifsPageModule)
   },
 
-  {
+  /*{
     path: 'geo-loc',
     loadChildren: () => import('./geo-loc/geo-loc.module').then( m => m.GeoLocPageModule)
-  },
+  },*/
 
 ];
 
