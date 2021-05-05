@@ -27,7 +27,7 @@ export class HomePage {
       console.log(res);
     })
 
-    if(true) {
+    if(false) {
       let deal: Deal = {
         title: "Un super deal",
         price: 5.00,
