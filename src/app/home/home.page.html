@@ -35,6 +35,8 @@
 <ion-content>
   <ion-label> user: {{this.isUserLoggedIn}}  </ion-label>
   <ion-button (click)="createAccount()">create account</ion-button>
+  <ion-button (click)="authenticateWithEmail()">connect</ion-button>
+  <ion-button (click)="logout()">logout</ion-button>
 </ion-content>
 <ion-content *ngIf="scannedBarCode">
   <ion-label>

@@ -40,6 +40,19 @@ const routes: Routes = [
     path: 'produits-alternatifs',
     loadChildren: () => import('./produits-alternatifs/produits-alternatifs.module').then( m => m.ProduitsAlternatifsPageModule)
   },
+  {
+    path: 'connexion',
+    loadChildren: () => import('./connexion/connexion.module').then( m => m.ConnexionPageModule)
+  },
+  {
+    path: 'create-account',
+    loadChildren: () => import('./create-account/create-account.module').then( m => m.CreateAccountPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+
 
   /*{
     path: 'geo-loc',

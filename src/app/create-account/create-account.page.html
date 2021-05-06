@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Créer un compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <form>
+      <ion-item lines="full">
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input type="text" #name required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Prénom</ion-label>
+        <ion-input type="text" #firstname required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" #email required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Mot de passe</ion-label>
+        <ion-input type="password" #password required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Confirmer le mot de passe</ion-label>
+        <ion-input type="password" #confirmPassword required></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" (click)="createAccount(name, firstname, email, password, confirmPassword)" expand="block">Enregistrer</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+</ion-content>
