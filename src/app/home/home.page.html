@@ -33,6 +33,12 @@
 </ion-content>
 
 
+<ion-content *ngIf="scannedBarCode">
+  <ion-label>
+    Produit : {{this.monProduit.product_name}}
+  </ion-label>
+</ion-content>
+
 <ion-content>
   <ion-tabs>
     <!-- Tab bar -->

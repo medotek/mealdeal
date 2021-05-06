@@ -1,23 +1,26 @@
 import { Deal } from './../interfaces/deal';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
+// import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DaoService {
-  
-  //Realtime Database
-  dbList: AngularFireList<any>;
-  dbObject: AngularFireObject<any>;
-  
-  constructor(private database: AngularFireDatabase) { }
+
+  // //Realtime Database
+  // dbList: AngularFireList<any>;
+  // dbObject: AngularFireObject<any>;
+
+  constructor(
+    // private database: AngularFireDatabase
+  ) { }
 
 
   //////////////////
   //    DEALS     //
   /////////////////////////////////////////////////////////////////////////////////////////////
 
+  /*
   createDeal(d: Deal) {
     this.dbList = this.database.list('/Deal');
     console.log(this.dbList);
@@ -53,4 +56,5 @@ export class DaoService {
     this.dbObject = this.database.object('/Deal/' + key);
     this.dbObject.remove();
   }
+  */
 }
