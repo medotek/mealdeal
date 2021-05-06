@@ -23,7 +23,6 @@
     "@ionic-native/barcode-scanner": "^5.32.1",
     "@ionic-native/core": "^5.32.1",
     "@ionic/angular": "^5.5.2",
-    "cordova-android": "9.1.0",
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
@@ -46,8 +45,8 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "cordova-android": "^9.1.0",
     "cordova-plugin-device": "^2.0.2",
-    "cordova-plugin-firebase": "^2.0.0",
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -85,7 +84,6 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-firebase": {},
       "cordova-plugin-geolocation": {
         "GPS_REQUIRED": "true"
       },
@@ -114,7 +112,6 @@
       "cordova-plugin-androidx-adapter": {}
     },
     "platforms": [
-      "android",
       "windows"
     ]
   }
