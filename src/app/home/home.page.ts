@@ -7,6 +7,7 @@ import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
 import {FirebaseX} from "@ionic-native/firebase-x/ngx";
+import {Platform} from '@ionic/angular'
 
 
 @Component({
@@ -25,7 +26,8 @@ export class HomePage {
 
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
               private firebase: FirebaseX,
-              private dao: DaoService) {
+              private dao: DaoService,
+              private platform: Platform) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -33,7 +35,9 @@ export class HomePage {
       showTorchButton: true,
       showFlipCameraButton: true
     };
-    this.firebase.setLanguageCode('fr').then(r => console.log(r));
+    this.platform.ready().then(r =>
+      this.firebase.setLanguageCode('fr').then(r => console.log(r))
+    )
     this.homeService.searchProduct('5410041040807').subscribe((data: API) => {
       this.response = data;
       // récupère uniquement le tableau product
@@ -66,34 +70,68 @@ export class HomePage {
   }
 
   ngOnInit() {
-
-
     this.isUserLogged();
   }
 
   createAccount() {
-    this.firebase.createUserWithEmailAndPassword('test@test.fr', 'testtest').then(r => console.log(r))
-    // FirebasePlugin.authenticateUserWithEmailAndPassword(email, password, function(credential) {
-    //   console.log("Successfully authenticated with email/password");
-    //   FirebasePlugin.reauthenticateWithCredential(credential, function() {
-    //     console.log("Successfully re-authenticated");
-    //   }, function(error) {
-    //     console.error("Failed to re-authenticate", error);
-    //   });
-    //   // User is now signed in
-    // }, function(error) {
-    //   console.error("Failed to authenticate with email/password", error);
-    // });
+    this.platform.ready().then(r =>
+        this.firebase.createUserWithEmailAndPassword('test@test.fr', 'testtest').then(r =>
+          console.log(r)
+          //execute db queries
+        )
+      // FirebasePlugin.authenticateUserWithEmailAndPassword(email, password, function(credential) {
+      //   console.log("Successfully authenticated with email/password");
+      //   FirebasePlugin.reauthenticateWithCredential(credential, function() {
+      //     console.log("Successfully re-authenticated");
+      //   }, function(error) {
+      //     console.error("Failed to re-authenticate", error);
+      //   });
+      //   // User is now signed in
+      // }, function(error) {
+      //   console.error("Failed to authenticate with email/password", error);
+      // });
+    )
+  }
+
+  getAllDeals() {
+    // this.firebase.fetchFirestoreCollection().then(r =>console.log(r))
+  }
+
+  authenticateWithEmail() {
+    this.platform.ready().then(r =>
+      this.firebase.signInUserWithEmailAndPassword('test@test.fr', 'testtest').then(() => {
+          this.isUserLogged()
+          console.log(this.isUserLoggedIn)
+        }
+      )
+    )
+  }
+
+  logout() {
+    this.platform.ready().then(r =>
+      this.firebase.signOutUser().then(r => {
+        if (r) {
+          console.log('logged out ' + r)
+        } else {
+          console.log('not logged out' + r)
+        }
+      })
+    )
+
+    this.isUserLogged()
+    console.log(this.isUserLoggedIn);
   }
 
   isUserLogged() {
-    this.firebase.isUserSignedIn().then(r => {
-      if (r) {
-        this.isUserLoggedIn = 'connecté';
-      } else {
-        this.isUserLoggedIn = 'non connecté';
-      }
-    })
+    this.platform.ready().then(r =>
+      this.firebase.isUserSignedIn().then(r => {
+        if (r) {
+          this.isUserLoggedIn = 'connecté';
+        } else {
+          this.isUserLoggedIn = 'non connecté';
+        }
+      })
+    )
   }
 
   scanBRcode() {
