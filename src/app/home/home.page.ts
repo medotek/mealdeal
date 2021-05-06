@@ -38,14 +38,14 @@ export class HomePage {
   }
 
   ngOnInit() {
-    this.isUserLogged();
+    // this.isUserLogged();
   }
 
-  isUserLogged() {
-    this.firebase.isUserSignedIn().then(r => () => {
-      console.log(r)
-    });
-  }
+  // isUserLogged() {
+  //   this.firebase.isUserSignedIn().then(r => () => {
+  //     console.log(r)
+  //   });
+  // }
 
   scanBRcode() {
     this.scanner.scan().then(res => {
