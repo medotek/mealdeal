@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.lpsmin.mealdeal" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>MealDeal</name>
-    <description>Une promo, une faim, un deal.</description>
+    <description>Une promo, une creux, un deal.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Groupe 2</author>
     <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
