@@ -24,8 +24,8 @@ export class DaoService {
     return this.dbList.push(d);
   }
 
-  getDeal(id: string) {
-    this.dbObject = this.database.object('/Deal/' + id);
+  getDeal(key: string) {
+    this.dbObject = this.database.object('/Deal/' + key);
     return this.dbObject;
   }
 
@@ -34,17 +34,23 @@ export class DaoService {
     return this.dbList;
   }
 
-  updateDeal() {
-    return null;
-  }
-
-  deleteDeal(id: string) {
-    this.dbObject = this.database.object('/Deal/' + id);
-    this.dbObject.remove();
+  getDealsBySku(sku: string){
+    this.dbList = this.database.list('/Deal', ref => ref.orderByChild('product_sku').equalTo(sku));
+    return this.dbList;
   }
 
   getDealsOrderedByCreation(){
     this.dbList = this.database.list('/Deal', ref => ref.orderByChild('creation'));
     return this.dbList;
+  }
+
+  updateDeal(key: string, deal: Deal) {
+    this.dbObject = this.database.object('/Deal/' + key);
+    return this.dbObject.update(deal);
+  }
+
+  deleteDeal(key: string) {
+    this.dbObject = this.database.object('/Deal/' + key);
+    this.dbObject.remove();
   }
 }
