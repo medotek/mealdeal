@@ -1,12 +1,13 @@
-import { DealPrototype } from './../class/deal-prototype';
-import { Deal } from './../interfaces/deal';
-import { DaoService } from './../services/dao.service';
-import { Component } from '@angular/core';
-import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
-import { HomeService } from '../services/home.service';
+import {DealPrototype} from './../class/deal-prototype';
+import {Deal} from './../interfaces/deal';
+import {DaoService} from './../services/dao.service';
+import {Component} from '@angular/core';
+import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
+import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
-import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+import {FirebaseX} from "@ionic-native/firebase-x/ngx";
+
 
 @Component({
   selector: 'app-home',
@@ -20,9 +21,11 @@ export class HomePage {
   public response: API;
   public monProduit: Product;
   public oui = false;
+  public isUserLoggedIn: string;
 
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
-              private firebase: FirebaseX, private dao: DaoService) {
+              private firebase: FirebaseX,
+              private dao: DaoService) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -30,47 +33,68 @@ export class HomePage {
       showTorchButton: true,
       showFlipCameraButton: true
     };
-
+    this.firebase.setLanguageCode('fr').then(r => console.log(r));
     this.homeService.searchProduct('5410041040807').subscribe((data: API) => {
       this.response = data;
       // récupère uniquement le tableau product
       console.log(this.response.product);
 
-    //   if (false) {
-    //     let deal: DealPrototype = new DealPrototype(
-    //       "Un super deal",
-    //       "3017620422003",
-    //       5.00,
-    //       new Date(),
-    //       false,
-    //       "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
-    //       0,
-    //       "Une super description qui est étrangement très générique",
-    //       10.00,
-    //       50,
-    //       "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
-    //     );
-    //
-    //     this.dao.createDeal(deal);
-    //
-    //     this.dao.getAllDeals().snapshotChanges().subscribe((data: API) => {
-    //       console.log(this.response);
-    //     })
-    //   }
-    //
-    //
+      //   if (false) {
+      //     let deal: DealPrototype = new DealPrototype(
+      //       "Un super deal",
+      //       "3017620422003",
+      //       5.00,
+      //       new Date(),
+      //       false,
+      //       "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
+      //       0,
+      //       "Une super description qui est étrangement très générique",
+      //       10.00,
+      //       50,
+      //       "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
+      //     );
+      //
+      //     this.dao.createDeal(deal);
+      //
+      //     this.dao.getAllDeals().snapshotChanges().subscribe((data: API) => {
+      //       console.log(this.response);
+      //     })
+      //   }
+      //
+      //
     })
   }
 
   ngOnInit() {
-    // this.isUserLogged();
+
+
+    this.isUserLogged();
   }
 
-  // isUserLogged() {
-  //   this.firebase.isUserSignedIn().then(r => () => {
-  //     console.log(r)
-  //   });
-  // }
+  createAccount() {
+    this.firebase.createUserWithEmailAndPassword('test@test.fr', 'testtest').then(r => console.log(r))
+    // FirebasePlugin.authenticateUserWithEmailAndPassword(email, password, function(credential) {
+    //   console.log("Successfully authenticated with email/password");
+    //   FirebasePlugin.reauthenticateWithCredential(credential, function() {
+    //     console.log("Successfully re-authenticated");
+    //   }, function(error) {
+    //     console.error("Failed to re-authenticate", error);
+    //   });
+    //   // User is now signed in
+    // }, function(error) {
+    //   console.error("Failed to authenticate with email/password", error);
+    // });
+  }
+
+  isUserLogged() {
+    this.firebase.isUserSignedIn().then(r => {
+      if (r) {
+        this.isUserLoggedIn = 'connecté';
+      } else {
+        this.isUserLoggedIn = 'non connecté';
+      }
+    })
+  }
 
   scanBRcode() {
     this.scanner.scan().then(res => {
@@ -81,7 +105,7 @@ export class HomePage {
         this.monProduit = this.response.product;
         this.oui = true;
       });
-      this.homeService.searchProduct(this.scannedBarCode).subscribe( res => {
+      this.homeService.searchProduct(this.scannedBarCode).subscribe(res => {
         console.log(res);
       });
     });

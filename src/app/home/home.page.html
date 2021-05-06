@@ -32,7 +32,10 @@
   </ion-card>
 </ion-content>
 
-
+<ion-content>
+  <ion-label> user: {{this.isUserLoggedIn}}  </ion-label>
+  <ion-button (click)="createAccount()">create account</ion-button>
+</ion-content>
 <ion-content *ngIf="scannedBarCode">
   <ion-label>
     Produit : {{this.monProduit.product_name}}
