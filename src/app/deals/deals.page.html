@@ -4,6 +4,16 @@
   </ion-toolbar>
 </ion-header>
 
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of result">
+      <app-deals-component [title]="item.title" [image]="item.image_id" [price]="item.price"></app-deals-component>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
 <ion-content>
   <ion-tabs>
     <!-- Tab bar -->
