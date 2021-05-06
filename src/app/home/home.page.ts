@@ -4,7 +4,6 @@ import { DaoService } from './../services/dao.service';
 import { Component } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { HomeService } from '../services/home.service';
-import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
 import { FirebaseX } from "@ionic-native/firebase-x/ngx";
@@ -36,28 +35,31 @@ export class HomePage {
       this.response = data;
       // récupère uniquement le tableau product
       console.log(this.response.product);
-    });
-    if(false) {
-      let deal: DealPrototype = new DealPrototype(
-        "Un super deal",
-        "3017620422003",
-        5.00,
-        new Date(),
-        false,
-        "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
-        0,
-        "Une super description qui est étrangement très générique",
-        10.00,
-        50,
-        "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
-      );
 
-      this.dao.createDeal(deal);
-
-      this.dao.getAllDeals().snapshotChanges().subscribe((data: API) => {
-        console.log( this.response);
-      })
-
+    //   if (false) {
+    //     let deal: DealPrototype = new DealPrototype(
+    //       "Un super deal",
+    //       "3017620422003",
+    //       5.00,
+    //       new Date(),
+    //       false,
+    //       "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
+    //       0,
+    //       "Une super description qui est étrangement très générique",
+    //       10.00,
+    //       50,
+    //       "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
+    //     );
+    //
+    //     this.dao.createDeal(deal);
+    //
+    //     this.dao.getAllDeals().snapshotChanges().subscribe((data: API) => {
+    //       console.log(this.response);
+    //     })
+    //   }
+    //
+    //
+    })
   }
 
   ngOnInit() {

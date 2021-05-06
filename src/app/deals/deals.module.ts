@@ -8,7 +8,7 @@ import { DealsPageRoutingModule } from './deals-routing.module';
 
 import { DealsPage } from './deals.page';
 
-import{ DealsComponentComponent } from '../deals-component/deals-component.component';
+// import{ DealsComponentComponent } from '../deals-component/deals-component.component';
 
 @NgModule({
   imports: [
@@ -17,7 +17,9 @@ import{ DealsComponentComponent } from '../deals-component/deals-component.compo
     IonicModule,
     DealsPageRoutingModule
   ],
-  declarations: [DealsPage, DealsComponentComponent],
-  exports: [DealsComponentComponent],
+  declarations: [DealsPage
+    // , DealsComponentComponent
+  ],
+  // exports: [DealsComponentComponent],
 })
 export class DealsPageModule {}

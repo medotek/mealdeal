@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -23,14 +23,6 @@ const routes: Routes = [
   {
     path: 'info-produits',
     loadChildren: () => import('./info-produits/info-produits.module').then( m => m.InfoProduitsPageModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'inscription',
-    loadChildren: () => import('./inscription/inscription.module').then( m => m.InscriptionPageModule)
   },
   {
     path: 'compte-infos',
