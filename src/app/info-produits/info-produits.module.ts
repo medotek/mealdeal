@@ -8,6 +8,8 @@ import { InfoProduitsPageRoutingModule } from './info-produits-routing.module';
 
 import { InfoProduitsPage } from './info-produits.page';
 
+import { ProductsComponentComponent } from '../products-component/products-component.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,8 @@ import { InfoProduitsPage } from './info-produits.page';
     IonicModule,
     InfoProduitsPageRoutingModule
   ],
-  declarations: [InfoProduitsPage]
+  declarations: [InfoProduitsPage,
+    ProductsComponentComponent],
+  exports: [ProductsComponentComponent],
 })
 export class InfoProduitsPageModule {}

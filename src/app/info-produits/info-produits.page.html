@@ -4,6 +4,34 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content style="text-align: center">
+
+  <ion-searchbar placeholder="Nom, Marque,..." [(ngModel)]="monFiltre" (ionChange)="updateFilter()"></ion-searchbar>
+
+  <ion-label>Ou</ion-label>
+  <ion-button class="myButton" color="primary" expand="block" (click)="scanBRcode()">
+    Scanner
+  </ion-button>
+</ion-content>
+
+<ion-content  *ngIf="scanne">
+  <ion-label>
+    <app-products-component [nom]="this.monProduit.product_name" [marque]="this.monProduit.brands" [image]="this.monProduit.image_front_url"></app-products-component>
+  </ion-label>
+</ion-content>
+
+<ion-content *ngIf="search">
+  <ion-list>
+    <ion-item *ngFor="let item of searchResults">
+      <app-products-component [nom]="item.product_name" [marque]="item.brands" [image]="item.image_front_url"></app-products-component>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
 <ion-content>
   <ion-tabs>
     <!-- Tab bar -->

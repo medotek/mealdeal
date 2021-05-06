@@ -6,7 +6,7 @@ import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scann
 import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
-import {FirebaseX} from "@ionic-native/firebase-x/ngx";
+import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 
 
 @Component({
@@ -20,7 +20,6 @@ export class HomePage {
   barcodeScannerOptions: BarcodeScannerOptions;
   public response: API;
   public monProduit: Product;
-  public oui = false;
   public isUserLoggedIn: string;
 
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
@@ -62,7 +61,7 @@ export class HomePage {
       //   }
       //
       //
-    })
+    });
   }
 
   ngOnInit() {
@@ -93,7 +92,7 @@ export class HomePage {
       } else {
         this.isUserLoggedIn = 'non connecté';
       }
-    })
+    });
   }
 
   scanBRcode() {
@@ -103,11 +102,10 @@ export class HomePage {
       this.homeService.searchProduct(this.scannedBarCode).subscribe((data: API) => {
         this.response = data;
         this.monProduit = this.response.product;
-        this.oui = true;
       });
-      this.homeService.searchProduct(this.scannedBarCode).subscribe(res => {
-        console.log(res);
-      });
+      // this.homeService.searchProduct(this.scannedBarCode).subscribe(res => {
+      //   console.log(res);
+      // });
     });
   }
 
