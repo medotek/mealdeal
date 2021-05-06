@@ -3,6 +3,7 @@ import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scann
 import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
+import { FirebaseX } from "@ionic-native/firebase-x/ngx";
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomePage {
   public monProduit: Product;
   public oui = false;
 
-  constructor(private scanner: BarcodeScanner, private homeService: HomeService) {
+  constructor(private scanner: BarcodeScanner, private homeService: HomeService,
+              private firebase: FirebaseX) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -32,6 +34,17 @@ export class HomePage {
       console.log(this.response.product);
     });
 
+
+  }
+
+  ngOnInit() {
+    this.isUserLogged();
+  }
+
+  isUserLogged() {
+    this.firebase.isUserSignedIn().then(r => () => {
+      console.log(r)
+    });
   }
 
   scanBRcode() {
