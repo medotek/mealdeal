@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { HomePageRoutingModule } from './home-routing.module';
 import { environment } from 'src/environments/environment';
 

@@ -1,13 +1,13 @@
 import {DealPrototype} from './../class/deal-prototype';
 import {Deal} from './../interfaces/deal';
 import {DaoService} from './../services/dao.service';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
-import {FirebaseX} from "@ionic-native/firebase-x/ngx";
-import {Platform} from '@ionic/angular'
+import {FirebaseX} from '@ionic-native/firebase-x/ngx';
+import {Platform} from '@ionic/angular';
 
 
 @Component({
@@ -15,19 +15,18 @@ import {Platform} from '@ionic/angular'
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   encodedData: any;
   scannedBarCode: string;
   barcodeScannerOptions: BarcodeScannerOptions;
   public response: API;
   public monProduit: Product;
-  public oui = false;
   public isUserLoggedIn: string;
 
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
               private firebase: FirebaseX,
               private dao: DaoService,
-              private platform: Platform) {
+              private platform: Platform,) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -35,9 +34,9 @@ export class HomePage {
       showTorchButton: true,
       showFlipCameraButton: true
     };
-    this.platform.ready().then(r =>
+    this.platform.ready().then(() =>
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
-    )
+    );
     this.homeService.searchProduct('5410041040807').subscribe((data: API) => {
       this.response = data;
       // récupère uniquement le tableau product
@@ -66,7 +65,7 @@ export class HomePage {
       //   }
       //
       //
-    })
+    });
   }
 
   ngOnInit() {
@@ -74,7 +73,7 @@ export class HomePage {
   }
 
   createAccount() {
-    this.platform.ready().then(r =>
+    this.platform.ready().then(() =>
         this.firebase.createUserWithEmailAndPassword('test@test.fr', 'testtest').then(r =>
           console.log(r)
           //execute db queries
@@ -90,7 +89,7 @@ export class HomePage {
       // }, function(error) {
       //   console.error("Failed to authenticate with email/password", error);
       // });
-    )
+    );
   }
 
   getAllDeals() {
@@ -100,30 +99,30 @@ export class HomePage {
   authenticateWithEmail() {
     this.platform.ready().then(r =>
       this.firebase.signInUserWithEmailAndPassword('test@test.fr', 'testtest').then(() => {
-          this.isUserLogged()
-          console.log(this.isUserLoggedIn)
+          this.isUserLogged();
+          console.log(this.isUserLoggedIn);
         }
       )
-    )
+    );
   }
 
   logout() {
-    this.platform.ready().then(r =>
+    this.platform.ready().then(() =>
       this.firebase.signOutUser().then(r => {
         if (r) {
-          console.log('logged out ' + r)
+          console.log('logged out ' + r);
         } else {
-          console.log('not logged out' + r)
+          console.log('not logged out' + r);
         }
       })
-    )
+    );
 
-    this.isUserLogged()
+    this.isUserLogged();
     console.log(this.isUserLoggedIn);
   }
 
   isUserLogged() {
-    this.platform.ready().then(r =>
+    this.platform.ready().then(() =>
       this.firebase.isUserSignedIn().then(r => {
         if (r) {
           this.isUserLoggedIn = 'connecté';
@@ -131,7 +130,7 @@ export class HomePage {
           this.isUserLoggedIn = 'non connecté';
         }
       })
-    )
+    );
   }
 
   scanBRcode() {
@@ -141,10 +140,6 @@ export class HomePage {
       this.homeService.searchProduct(this.scannedBarCode).subscribe((data: API) => {
         this.response = data;
         this.monProduit = this.response.product;
-        this.oui = true;
-      });
-      this.homeService.searchProduct(this.scannedBarCode).subscribe(res => {
-        console.log(res);
       });
     });
   }

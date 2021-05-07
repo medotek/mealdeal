@@ -17,7 +17,7 @@ export class HomeService {
     return this.http.get(this.url + `api/v0/product/${id}.json`);
   }
 
-  public test() {
-    return this.http.get(this.url + `brand/cristaline.json`);
+  public test(marque) {
+    return this.http.get(this.url + `brand/${marque}.json`);
   }
 }
