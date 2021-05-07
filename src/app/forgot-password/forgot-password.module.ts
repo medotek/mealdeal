@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ForgotPasswordPageRoutingModule } from './forgot-password-routing.module';
 
 import { ForgotPasswordPage } from './forgot-password.page';
+import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { ForgotPasswordPage } from './forgot-password.page';
     FormsModule,
     IonicModule,
     ForgotPasswordPageRoutingModule
+  ],
+  providers: [
+    FirebaseX,
   ],
   declarations: [ForgotPasswordPage]
 })

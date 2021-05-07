@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ConnexionPageRoutingModule } from './connexion-routing.module';
 
 import { ConnexionPage } from './connexion.page';
+import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { ConnexionPage } from './connexion.page';
     FormsModule,
     IonicModule,
     ConnexionPageRoutingModule
+  ],
+  providers: [
+    FirebaseX,
   ],
   declarations: [ConnexionPage]
 })
