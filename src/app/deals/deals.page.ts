@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from '../services/home.service';
 import {DaoService} from '../services/dao.service';
 import {Deal} from '../interfaces/deal';
+import {IonInfiniteScroll, Platform} from '@ionic/angular';
+import {FirebaseX} from '@ionic-native/firebase-x/ngx';
+import {DealService} from '../entity/deal.service';
 
 @Component({
   selector: 'app-deals',
@@ -9,21 +12,44 @@ import {Deal} from '../interfaces/deal';
   styleUrls: ['./deals.page.scss'],
 })
 export class DealsPage implements OnInit {
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  public imageTmp = '/assets/icon/favicon.png';
+  public listHugo = ['1','2','3','4','5','6','7','8','9','10','11','12',
+    '13','14','15','16','17','18','19','20','21','22'];
+  public test = [''];
+  private result: any[] = [];
 
-  private result: Deal[] = [];
-
-  constructor(private homeService: HomeService, private dao: DaoService) { }
+  constructor(private homeService: HomeService, private dao: DaoService, private platform: Platform,
+              private firebase: FirebaseX,private dealService: DealService) {
+    this.platform.ready().then(() =>
+      this.firebase.setLanguageCode('fr').then(r => console.log(r))
+    );
+  }
 
   ngOnInit() {
-    // this.dao.getAllDeals().snapshotChanges().subscribe(res => {
-    //   res.forEach(item => {
-    //      const deal: Deal = item.payload.toJSON();
-    //      this.result.push(deal as Deal);
-    //      deal.image_id = 'https://images-ext-1.discordapp.net/external/N5YZ9atJOalIOuQPL18Hp307pnwok-beSaOT3mCf0qY/%3Falt%3Dme'+
-    //        'dia%26token%3Da83410ca-705d-4a79-beb4-511399b473b7/https/firebasestorage.googleapis.com/v0/b/mealdeal-lpsmin.appspot.'+
-    //        'com/o/images%252Fproducts%252F.placeholder%252Fplaceholder_664px.png';
-    //   });
-    // });
+    for(let i = 0; i < 10; i++){
+      this.test[i] = this.listHugo[i];
+    };
+    this.getAllDeals();
+  }
+  getAllDeals() {
+    this.platform.ready().then(() => {
+      this.dealService.getDealList().subscribe((res) => {
+        console.log(res);
+        this.result = res;
+      });
+    });
+  }
+  loadData(event) {
+    setTimeout(() => {
+      const length = this.test.length;
+      if(length < this.listHugo.length){
+        for (let i = length; i < length + 10; i++){
+          this.test[i] = this.listHugo[i];
+        }
+      }
+      event.target.complete();
+    }, 500);
   }
 
 }

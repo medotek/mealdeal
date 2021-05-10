@@ -10,7 +10,7 @@ import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Platform} from '@ionic/angular';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import {HttpHeaders} from '@angular/common/http';
-import {DealService} from "../entity/deal.service";
+import {DealService} from '../entity/deal.service';
 import {Router} from '@angular/router';
 
 
@@ -81,9 +81,9 @@ export class HomePage implements OnInit {
   getAllDeals() {
     this.platform.ready().then(() => {
       this.dealService.getDealList().subscribe((res) => {
-        console.log(res)
+        console.log(res);
         this.Deals = res;
-      })
+      });
     });
   }
 
