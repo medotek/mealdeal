@@ -24,6 +24,7 @@
         <ion-label position="floating">Password</ion-label>
         <ion-input type="password" #password required></ion-input>
       </ion-item>
+      <ion-label *ngIf="erreur" [ngStyle]="{color: 'red', fontSize: '13px', marginLeft: '15px'}">Votre identifient ou mot de passe est incorrect !</ion-label>
 
       <div class="forgotPassword" [ngStyle]="{marginLeft: '10px', marginTop: '10px', cursor: 'pointer'}">
         <a (click)="changePassword()">
