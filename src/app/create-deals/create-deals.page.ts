@@ -10,6 +10,9 @@ import { DealService } from '../entity/deal.service';
 })
 export class CreateDealsPage implements OnInit {
 
+  reduction = 0.0;
+  prixInitiale = 0.0;
+  prix = 0.0;
   dealForm: FormGroup;
   private date: any;
 
@@ -45,6 +48,15 @@ export class CreateDealsPage implements OnInit {
             this.router.navigate(['/home']);
           });
         });
+    }
+  }
+
+  calcReductionPrix(operation) {
+    if (operation === 'Pourcentage') {
+      const prixSoustrait = (this.prixInitiale * this.reduction)/100;
+      this.prix = this.prixInitiale - prixSoustrait;
+    } else if (operation === 'prixFinal') {
+      this.reduction = (((this.prix - this.prixInitiale)/(-1))*100)/this.prixInitiale;
     }
   }
 

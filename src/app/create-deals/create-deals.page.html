@@ -23,25 +23,25 @@
       </ion-item>
 
       <ion-item>
+        <ion-label position="floating">Prix initiale</ion-label>
+        <ion-input formControlName="price" type="number" [(ngModel)]="this.prixInitiale" required> €
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-label position="floating">Prix</ion-label>
-        <ion-input formControlName="price" type="number" required> €
+        <ion-input formControlName="oldPrice" type="number" [(ngModel)]="this.prix" (ionChange)="calcReductionPrix('prixFinal')"> €
         </ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Ancien prix</ion-label>
-        <ion-input formControlName="oldPrice" type="number"> €
-        </ion-input>
-      </ion-item>
+      <p><B>OU</B></p>
 
-      <ion-item>
         <ion-label position="floating">Réduction</ion-label>
-        <ion-input formControlName="salePercent" type="number" > %
+        <ion-input formControlName="salePercent" type="number" [(ngModel)]="this.reduction" (ionChange)="calcReductionPrix('Pourcentage')"> %
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Image</ion-label>
+        <ion-label position="floating">Image</ion-label> <br>
         <ion-input formControlName="imageId" type="file">
         </ion-input>
       </ion-item>
