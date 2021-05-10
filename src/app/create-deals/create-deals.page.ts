@@ -11,6 +11,7 @@ import { DealService } from '../entity/deal.service';
 export class CreateDealsPage implements OnInit {
 
   dealForm: FormGroup;
+  private date: any;
 
   constructor(private router: Router, private fb: FormBuilder, private zone: NgZone, private dealService: DealService) {
     this.dealForm = this.fb.group({
@@ -31,7 +32,8 @@ export class CreateDealsPage implements OnInit {
   }
 
   onFormSubmit() {
-    console.log(this.dealForm.value);
+    this.date = new Date();
+    this.dealForm.value.dateCreation = new Date(this.date.getTime() - this.date.getTimezoneOffset()*60000).toISOString();
     if (!this.dealForm.valid) {
       return false;
     } else {
