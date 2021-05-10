@@ -11,6 +11,7 @@ import {Platform} from '@ionic/angular';
 })
 export class ConnexionPage implements OnInit {
   public isUserLoggedIn: string;
+  erreur = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -25,9 +26,10 @@ export class ConnexionPage implements OnInit {
   signUp(email, password){
     this.platform.ready().then(r =>
       this.firebase.signInUserWithEmailAndPassword(email.value, password.value).then(res => {
+        this.erreur = false;
         this.router.navigate(['/home']);
         }, () => {
-          alert('Votre identifient ou mot de passe est incorrect !');
+          this.erreur = true;
         }
       )
     );
