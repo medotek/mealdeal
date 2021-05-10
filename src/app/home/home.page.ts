@@ -8,6 +8,8 @@ import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Platform} from '@ionic/angular';
+import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
+import {HttpHeaders} from '@angular/common/http';
 
 
 @Component({
@@ -22,14 +24,16 @@ export class HomePage implements OnInit {
   public response: API;
   public monProduit: Product;
   public isUserLoggedIn: string;
-
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
               private firebase: FirebaseX,
               private dao: DaoService,
-              private platform: Platform,) {
+              private platform: Platform,
+              private http: HTTP
+              ) {
+
 
     this.encodedData = 'Programming isn\'t about what you know';
-
+    console.log("ui");
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
@@ -70,6 +74,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.isUserLogged();
+    this.getAllDeals();
   }
 
   createAccount() {
@@ -93,7 +98,16 @@ export class HomePage implements OnInit {
   }
 
   getAllDeals() {
-    // this.firebase.fetchFirestoreCollection().then(r =>console.log(r))
+    this.platform.ready().then(() => {
+      this.http.get('http://gudako.club:3001/api', {}, {})
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+  );
   }
 
   authenticateWithEmail() {
