@@ -52,6 +52,11 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
+  {
+    path: 'create-deals',
+    loadChildren: () => import('./create-deals/create-deals.module').then( m => m.CreateDealsPageModule)
+  },
+
 
 
   /*{
