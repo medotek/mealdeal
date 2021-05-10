@@ -10,6 +10,7 @@ import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Platform} from '@ionic/angular';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import {HttpHeaders} from '@angular/common/http';
+import {DealService} from "../entity/deal.service";
 
 
 @Component({
@@ -24,16 +25,19 @@ export class HomePage implements OnInit {
   public response: API;
   public monProduit: Product;
   public isUserLoggedIn: string;
+
+  Deals: any = [];
+
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
               private firebase: FirebaseX,
               private dao: DaoService,
               private platform: Platform,
-              private http: HTTP
+              private http: HTTP,
+              private dealService: DealService
               ) {
 
 
     this.encodedData = 'Programming isn\'t about what you know';
-    console.log("ui");
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
@@ -45,30 +49,6 @@ export class HomePage implements OnInit {
       this.response = data;
       // récupère uniquement le tableau product
       console.log(this.response.product);
-
-      //   if (false) {
-      //     let deal: DealPrototype = new DealPrototype(
-      //       "Un super deal",
-      //       "3017620422003",
-      //       5.00,
-      //       new Date(),
-      //       false,
-      //       "JE_DOIS_INVENTER_UN_IDENTIFIANT_DE_MAGASIN",
-      //       0,
-      //       "Une super description qui est étrangement très générique",
-      //       10.00,
-      //       50,
-      //       "UNE_URL_D'IMAGE_SUPER_BIEN_JE_CRIS_PAS_C'EST_POUR_BIEN_VOIR_D'ACCORD?"
-      //     );
-      //
-      //     this.dao.createDeal(deal);
-      //
-      //     this.dao.getAllDeals().snapshotChanges().subscribe((data: API) => {
-      //       console.log(this.response);
-      //     })
-      //   }
-      //
-      //
     });
   }
 
@@ -99,15 +79,11 @@ export class HomePage implements OnInit {
 
   getAllDeals() {
     this.platform.ready().then(() => {
-      this.http.get('http://gudako.club:3001/api', {}, {})
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-    }
-  );
+      this.dealService.getDealList().subscribe((res) => {
+        console.log(res)
+        this.Deals = res;
+      })
+    });
   }
 
   authenticateWithEmail() {
