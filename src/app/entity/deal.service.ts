@@ -39,6 +39,14 @@ export class DealService {
       );
   }
 
+  getUserDeal(uid): Observable<Deal[]> {
+    return this.http.get<Deal[]>(`http://gudako.club:3001/api/get-user-deals/${uid}`)
+      .pipe(
+        tap(deals => console.log('Deals fetched!')),
+        catchError(this.handleError<Deal[]>('Get Deals', []))
+      );
+  }
+
   updateDeal(id, deal: Deal): Observable<any> {
     return this.http.put('http://gudako.club:3001/api/update-deal/' + id, deal, this.httpOptions)
       .pipe(
