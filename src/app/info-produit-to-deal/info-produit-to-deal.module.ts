@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { InfoProduitsPageRoutingModule } from './info-produits-routing.module';
-import { InfoProduitsPage } from './info-produits.page';
+import { InfoProduitToDealPageRoutingModule } from './info-produit-to-deal-routing.module';
+import { InfoProduitToDealPage } from './info-produit-to-deal.page';
 import { ProductsComponentComponent } from '../products-component/products-component.component';
 
 @NgModule({
@@ -11,10 +11,10 @@ import { ProductsComponentComponent } from '../products-component/products-compo
     CommonModule,
     FormsModule,
     IonicModule,
-    InfoProduitsPageRoutingModule
+    InfoProduitToDealPageRoutingModule
   ],
-  declarations: [InfoProduitsPage,
+  declarations: [InfoProduitToDealPage,
     ProductsComponentComponent],
   exports: [ProductsComponentComponent],
 })
-export class InfoProduitsPageModule {}
+export class InfoProduitToDealPageModule {}

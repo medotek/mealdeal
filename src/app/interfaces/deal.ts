@@ -11,5 +11,5 @@ export interface Deal {
     // old_price?: number;
     // sale_percent?: number;
     // image_id?: string;
-    author?:string;
+    author?: string;
 }

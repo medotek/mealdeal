@@ -5,6 +5,7 @@ import {Deal} from '../interfaces/deal';
 import {IonInfiniteScroll, Platform} from '@ionic/angular';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {DealService} from '../entity/deal.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-deals',
@@ -20,7 +21,7 @@ export class DealsPage implements OnInit {
   private result: any[] = [];
 
   constructor(private homeService: HomeService, private dao: DaoService, private platform: Platform,
-              private firebase: FirebaseX,private dealService: DealService) {
+              private firebase: FirebaseX,private dealService: DealService, private router: Router,) {
     this.platform.ready().then(() =>
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
     );
@@ -35,7 +36,6 @@ export class DealsPage implements OnInit {
   getAllDeals() {
     this.platform.ready().then(() => {
       this.dealService.getDealList().subscribe((res) => {
-        console.log(res);
         this.result = res;
       });
     });
@@ -50,6 +50,9 @@ export class DealsPage implements OnInit {
       }
       event.target.complete();
     }, 500);
+  }
+  addDeals(){
+    this.router.navigate(['info-produit-to-deal']);
   }
 
 }

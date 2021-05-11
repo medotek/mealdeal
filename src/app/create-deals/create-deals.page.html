@@ -4,6 +4,9 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-title class="ios title-ios hydrated">Création d'un deal</ion-title>
+    <ion-buttons slot="end">
+      <ion-label (click)="cancelDeal()">Annuler</ion-label>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -30,19 +33,23 @@
 
       <ion-item>
         <ion-label position="floating">Prix</ion-label>
-        <ion-input formControlName="oldPrice" type="number" [(ngModel)]="this.prix" (ionChange)="calcReductionPrix('prixFinal')"> €
+        <ion-input formControlName="oldPrice" type="number" [(ngModel)]="this.prix"
+                   (ionChange)="calcReductionPrix('prixFinal')"> €
         </ion-input>
 
-      <p><B>OU</B></p>
+        <p><B>OU</B></p>
 
         <ion-label position="floating">Réduction</ion-label>
-        <ion-input formControlName="salePercent" type="number" [(ngModel)]="this.reduction" (ionChange)="calcReductionPrix('Pourcentage')"> %
+        <ion-input formControlName="salePercent" type="number" [(ngModel)]="this.reduction"
+                   (ionChange)="calcReductionPrix('Pourcentage')"> %
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Image</ion-label> <br>
-        <ion-input formControlName="imageId" type="file">
+        <ion-label position="floating">Image</ion-label>
+        <br>
+        <ion-img *ngIf="produitImage != null" style="width: 30%" [src]=this.produitImage></ion-img>
+        <ion-input *ngIf="produitImage == null" formControlName="imageId" type="file">
         </ion-input>
       </ion-item>
       <ion-row>
