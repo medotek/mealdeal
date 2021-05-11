@@ -1,3 +1,4 @@
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -19,6 +20,7 @@ import {environment} from '../environments/environment';
     AppRoutingModule,
   ],
   providers: [
+    FirebaseX,
     HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner

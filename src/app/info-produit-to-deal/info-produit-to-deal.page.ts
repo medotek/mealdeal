@@ -34,18 +34,11 @@ export class InfoProduitToDealPage implements OnInit {
         this.monProduit = this.response.product;
       });
     });
-    // this.search = false;
-    // this.scanne = true;
-    // this.scannedBarCode = '5410041040807';
-    // this.homeService.searchProduct(this.scannedBarCode).subscribe((data: API) => {
-    //   this.response = data;
-    //   this.monProduit = this.response.product;
-    // });
   }
   updateFilter(){
     this.scanne = false;
     this.search = true;
-    this.homeService.test(this.monFiltre).subscribe((data: API) => {
+    this.homeService.searchQuery(this.monFiltre).subscribe((data: API) => {
       this.searchResults = data['products'];
     });
   }

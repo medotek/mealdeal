@@ -1,23 +1,62 @@
+import { Platform } from '@ionic/angular';
 import { Injectable, NgZone } from '@angular/core';
-import { Users} from '../Interfaces/users';
-import { Router } from '@angular/router';
+import { FirebaseUser, FirebaseX } from '@ionic-native/firebase-x/ngx';
+import {User} from "../entity/user";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  userData: any;
-  public loggedIn = false;
+  public errorCode: string;
+  public errorMessage: string;
+
+  public authenticationState: number = 0;
+  // 0: not logged in (default)
+  // 1: logged in
 
   constructor(
-    public router: Router,
-    public ngZone: NgZone,
-  ) {
+    private firebase: FirebaseX,
+    private platform: Platform
+  ) {}
+
+  public getErrorCode() {
+    return this.errorCode;
   }
 
-  logUserIn(email, pass) {
-    console.log(email + ' ' + pass);
+  public getErrorMessage() {
+    return this.errorMessage;
   }
 
+  // Success: return true
+  // Error: return false
+  public createAccount(email: string, password: string) {
+    this.platform.ready().then(r => {
+      this.firebase.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          this.authenticationState = 1;
+          this.errorCode = null;
+          this.errorMessage = null;
+        })
+        .catch((error) => {
+          this.errorCode = error.code;
+          this.errorMessage = error.message;
+        })
+    })
+  }
+
+
+  logout() {
+    this.platform.ready().then(() =>
+      this.firebase.signOutUser().then(r => {
+        console.log(r);
+      })
+    );
+  }
+
+
+  getCurrentUser()  {
+    return this.firebase.getCurrentUser()
+  }
 }

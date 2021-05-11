@@ -6,12 +6,6 @@
 
 <ion-content [fullscreen]="true">
   <ion-card>
-    <ion-button color="danger" (click)="scanBRcode()" expand="block">
-      Scan Barcode
-    </ion-button>
-  </ion-card>
-
-  <ion-card>
     <div *ngIf="scannedBarCode">
       <ion-item>
         Scanned code output: <strong>{{ scannedBarCode["text"] }}</strong>
@@ -25,17 +19,14 @@
   <ion-card>
     <h3>Generate New QR Code</h3>
     <ion-input placeholder="Enter Input" [(ngModel)]="encodedData"></ion-input>
-
-    <ion-button color="primary" (click)="generateBarCode()" expand="block">
-      QR Code Create
-    </ion-button>
   </ion-card>
 </ion-content>
 
 <ion-content>
   <ion-label *ngIf="this.isUserLoggedIn"> L'utilisateur est connecté! </ion-label>
-  <ion-label *ngIf="!this.isUserLoggedIn"> L'utilisateur n'est pas connecté  </ion-label>
+  <ion-label *ngIf="!this.isUserLoggedIn">L'utilisateur n'est pas connecté</ion-label>
   <ion-button  routerLink="/create-account">create account</ion-button>
+  <ion-button  routerLink="/create-deals">create-deals</ion-button>
   <ion-button (click)="authenticateWithEmail()">connect</ion-button>
   <ion-button (click)="logout()">logout</ion-button>
 </ion-content>

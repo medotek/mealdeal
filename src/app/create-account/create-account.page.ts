@@ -1,9 +1,10 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import {FirebaseUser, FirebaseX} from '@ionic-native/firebase-x/ngx';
-import {Platform} from '@ionic/angular';
 import {Router} from '@angular/router';
-import {User} from "../entity/user";
 import {UserService} from "../entity/user.service";
+import {User} from "../entity/user";
+
 
 @Component({
   selector: 'app-create-account',
@@ -12,57 +13,50 @@ import {UserService} from "../entity/user.service";
 })
 export class CreateAccountPage implements OnInit {
 
-  erreurPassword = false;
-  erreurMail = false;
+  differentPassword = false;
 
   constructor(
+    private auth: AuthenticationService,
     private router: Router,
-    private firebase: FirebaseX,
-    private platform: Platform,
     private userService: UserService) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   createAccount(nickname, email, password, confirmPassword) {
     if (password.value === confirmPassword.value) {
-      this.erreurPassword = false;
-      this.platform.ready().then(r =>
-        this.firebase.createUserWithEmailAndPassword(email.value, password.value).then(res => {
-          this.erreurMail = false;
-          var user = new User();
+      this.differentPassword = false;
 
-          this.getCurrentUserPromise().then((data: FirebaseUser ) => {
-            user.nickname = nickname;
-            var date = new Date();
-            user.creationDate = new Date(date.getTime() -date.getTimezoneOffset()*60000);
-            user.uid = data.uid
-            this.addUser(user);
-            console.log(user)
-          })
+      this.auth.createAccount(email.value, password.value);
+
+      if(this.auth.getErrorCode()) {
+        alert(this.auth.getErrorMessage());
+      } else {
+        let user = new User();
+        this.auth.getCurrentUser().then((firebaseUser: FirebaseUser) => {
+          user.uid = firebaseUser.uid;
+          user.nickname = nickname.value;
+          var date = new Date();
+          user.creationDate = new Date(date.getTime() -date.getTimezoneOffset()*60000);
+          this.addUser(user);
+          console.log(user);
+
           this.router.navigate(['/home']);
-          //execute db queries
-        }, () => {
-          this.erreurMail = true;
-          alert('L\'adresse mail est déjà utilisé !');
-        }));
+        })
+          .catch((error) => {
+            alert(error)
+          });
+
+      }
+
     } else {
-      this.erreurPassword = true;
       alert('Les mots de passes ne sont pas identiques !');
     }
   }
 
- addUser(user) {
-    this.platform.ready().then(() => {
-      this.userService.addUser(user).subscribe((res) => {
-        console.log(res);
+
+  addUser(user) {
+      this.userService.addUser(user).subscribe(() => {
+        console.log("User added to Mongodb");
       });
-    });
-  }
-
-  getCurrentUserPromise() {
-    return this.firebase.getCurrentUser()
-
   }
 }

@@ -36,7 +36,8 @@ export class HomePage implements OnInit{
               private homeService: HomeService,
               private firebase: FirebaseX,
               private dealService: DealService,
-              private http: HTTP) {
+              private http: HTTP,
+              private window: Window) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -105,32 +106,27 @@ export class HomePage implements OnInit{
   }
 
   isUserLogged() {
-    this.platform.ready().then(() => {
-      this.firebase.isUserSignedIn().then(r => {
-        if (r) {
-          this.isUserLoggedIn = true;
-        } else {
-          this.isUserLoggedIn = false;
-        }
+    let isSignedIn = this.window.localStorage.getItem('SignedIn');
+    if(this.window.localStorage.getItem('SignedIn')) {
+      if(isSignedIn === '1'){
+        this.isUserLoggedIn = true;
+      }
+      else{
+        this.isUserLoggedIn = false;
+      }
+    } else {
+      this.platform.ready().then(() => {
+        this.firebase.isUserSignedIn().then(r => {
+          if (r) {
+            this.isUserLoggedIn = true;
+            this.window.localStorage.setItem('SignedIn','1');
+          } else {
+            this.isUserLoggedIn = false;
+            this.window.localStorage.setItem('SignedIn','0');
+          }
+        });
       });
-    });
-
-  }
-
-
-  scanBRcode() {
-    this.scanner.scan().then(res => {
-      this.scannedBarCode = res.text;
-
-      this.homeService.searchProduct(this.scannedBarCode).subscribe((data: API) => {
-        this.response = data;
-        this.monProduit = this.response.product;
-        this.oui = true;
-      });
-      this.homeService.searchProduct(this.scannedBarCode).subscribe(res => {
-        console.log(res);
-      });
-    });
+    }
   }
 
   generateBarCode() {

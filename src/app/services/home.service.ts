@@ -20,4 +20,9 @@ export class HomeService {
   public test(marque) {
     return this.http.get(this.url + `brand/${marque}.json`);
   }
+  public searchQuery(query) {
+    //add page &page=1
+    return this.http.get(this.url + `/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1`);
+  }
+
 }
