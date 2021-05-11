@@ -38,7 +38,7 @@ export class CreateAccountPage implements OnInit {
           var date = new Date();
           user.creationDate = new Date(date.getTime() -date.getTimezoneOffset()*60000);
           this.addUser(user);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/deals']);
         })
           .catch((error) => {
             alert(error)
