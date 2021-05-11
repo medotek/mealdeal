@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-    addUser(user: User){
+    addUser(user: User): Observable<any> {
     return this.http.post<User>('http://gudako.club:3001/api/user/create', user, this.httpOptions)
       .pipe(
         catchError(this.handleError<User>('Add Deal'))

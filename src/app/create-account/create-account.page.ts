@@ -1,4 +1,4 @@
-import { AuthenticationService } from './../services/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import {FirebaseUser, FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Router} from '@angular/router';
@@ -38,8 +38,6 @@ export class CreateAccountPage implements OnInit {
           var date = new Date();
           user.creationDate = new Date(date.getTime() -date.getTimezoneOffset()*60000);
           this.addUser(user);
-          console.log(user);
-
           this.router.navigate(['/home']);
         })
           .catch((error) => {
