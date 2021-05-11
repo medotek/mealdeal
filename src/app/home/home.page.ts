@@ -1,4 +1,4 @@
-import { DealService } from './../entity/deal.service';
+import { DealService } from '../entity/deal.service';
 import {Component} from '@angular/core';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
@@ -31,7 +31,8 @@ export class HomePage {
               private homeService: HomeService,
               private firebase: FirebaseX,
               private dealService: DealService,
-              private window: Window) {
+              // private window: Window
+  ) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -100,24 +101,24 @@ export class HomePage {
   }
 
   isUserLogged() {
-    let isSignedIn: string = this.window.localStorage.getItem("SignedIn");
-    if(this.window.localStorage.getItem("SignedIn")) {
-      if(isSignedIn = "1")
-        this.isUserLoggedIn = true;
-      else
-        this.isUserLoggedIn = false;
-    } else {
-      this.platform.ready().then(() => {
-        this.firebase.isUserSignedIn().then(r => {
-          if (r) {
-            this.isUserLoggedIn = true;
-            this.window.localStorage.setItem("SignedIn","1");
-          } else {
-            this.isUserLoggedIn = false;
-            this.window.localStorage.setItem("SignedIn","0");
-          }
-        })
-      })
-    }
+    // let isSignedIn: string = this.window.localStorage.getItem("SignedIn");
+    // if(this.window.localStorage.getItem("SignedIn")) {
+    //   if(isSignedIn = "1")
+    //     this.isUserLoggedIn = true;
+    //   else
+    //     this.isUserLoggedIn = false;
+    // } else {
+    //   this.platform.ready().then(() => {
+    //     this.firebase.isUserSignedIn().then(r => {
+    //       if (r) {
+    //         this.isUserLoggedIn = true;
+    //         this.window.localStorage.setItem("SignedIn","1");
+    //       } else {
+    //         this.isUserLoggedIn = false;
+    //         this.window.localStorage.setItem("SignedIn","0");
+    //       }
+    //     })
+    //   })
+    // }
   }
 }
