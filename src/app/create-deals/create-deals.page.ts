@@ -66,7 +66,7 @@ export class CreateDealsPage implements OnInit {
           this.zone.run(() => {
             console.log(res);
             this.dealForm.reset();
-            this.router.navigate(['/home']);
+            this.router.navigate(['/deals']);
           });
         });
     }
