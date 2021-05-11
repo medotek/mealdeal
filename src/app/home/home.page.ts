@@ -1,6 +1,4 @@
 import { DealService } from './../entity/deal.service';
-import {DealPrototype} from './../class/deal-prototype';
-import {Deal} from './../interfaces/deal';
 import {Component} from '@angular/core';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
@@ -8,9 +6,6 @@ import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
 import {FirebaseX} from "@ionic-native/firebase-x/ngx";
 import { Platform } from '@ionic/angular';
-import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
-import {HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
 
 
 @Component({
@@ -36,7 +31,7 @@ export class HomePage {
               private homeService: HomeService,
               private firebase: FirebaseX,
               private dealService: DealService,
-              private http: HTTP) {
+              private window: Window) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -63,10 +58,10 @@ export class HomePage {
 
   createAccount() {
     this.platform.ready().then(() =>
-      this.firebase.createUserWithEmailAndPassword('test@test.fr', 'testtest').then(r =>
+        this.firebase.createUserWithEmailAndPassword('test@test.fr', 'testtest').then(r =>
           console.log(r)
-        //execute db queries
-      )
+          //execute db queries
+        )
     );
   }
 
@@ -105,15 +100,24 @@ export class HomePage {
   }
 
   isUserLogged() {
-    this.platform.ready().then(() => {
-      this.firebase.isUserSignedIn().then(r => {
-        if (r) {
-          this.isUserLoggedIn = true;
-        } else {
-          this.isUserLoggedIn = false;
-        }
+    let isSignedIn: string = this.window.localStorage.getItem("SignedIn");
+    if(this.window.localStorage.getItem("SignedIn")) {
+      if(isSignedIn = "1")
+        this.isUserLoggedIn = true;
+      else
+        this.isUserLoggedIn = false;
+    } else {
+      this.platform.ready().then(() => {
+        this.firebase.isUserSignedIn().then(r => {
+          if (r) {
+            this.isUserLoggedIn = true;
+            this.window.localStorage.setItem("SignedIn","1");
+          } else {
+            this.isUserLoggedIn = false;
+            this.window.localStorage.setItem("SignedIn","0");
+          }
+        })
       })
-    })
-
+    }
   }
 }

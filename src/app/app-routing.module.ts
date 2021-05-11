@@ -55,10 +55,16 @@ const routes: Routes = [
   {
     path: 'create-deals',
     loadChildren: () => import('./create-deals/create-deals.module').then( m => m.CreateDealsPageModule)
-  },  {
+  },
+  {
     path: 'info-produit-to-deal',
     loadChildren: () => import('./info-produit-to-deal/info-produit-to-deal.module').then( m => m.InfoProduitToDealPageModule)
   },
+  {
+    path: 'deal-information',
+    loadChildren: () => import('./deal-information/deal-information.module').then( m => m.DealInformationPageModule)
+  },
+
 
 
 

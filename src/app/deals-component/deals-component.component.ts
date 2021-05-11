@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-deals-component',
@@ -16,10 +17,15 @@ export class DealsComponentComponent implements OnInit {
   @Input() vote: number;
   @Input() dateCreation: Date;
   @Input() expired: boolean;
+  @Input() id: string;
   public img = '/assets/icon/favicon.png';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
+
+  moreInformations() {
+    this.router.navigate(['/deal-information', {page: 'deals', id: this.id}]);
+  }
 
 }

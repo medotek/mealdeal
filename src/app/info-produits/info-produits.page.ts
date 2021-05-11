@@ -16,11 +16,15 @@ export class InfoProduitsPage implements OnInit {
 
   scannedBarCode: string;
   public response: API;
+  public monProduit: Product;
+  public monFiltre: string;
   public Deal: Deal[];
   public query: string;
   public searchResults: any[] = [];
   private result: any[] = [];
   public search = false;
+  public scanne = false;
+  public isUserLoggedIn = false;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   public imageTmp = '/assets/icon/favicon.png';
   public listHugo = ['1','2','3','4','5','6','7','8','9','10','11','12',

@@ -13,7 +13,7 @@
     <ion-item *ngFor="let item of result">
       <app-deals-component [title]="item.title" [image]="imageTmp" [price]="item.price" [oldPrice]="item.oldPrice"
                            [salePercent]="item.salePercent" [vote]="item.vote" [dateCreation]="item.dateCreation"
-                           [description]="item.description" [expired]="item.expired"></app-deals-component>
+                           [description]="item.description" [expired]="item.expired" [id]="item.code"></app-deals-component>
     </ion-item>
   </ion-list>
 
@@ -44,8 +44,11 @@
         <ion-tab-button tab="map" routerLink="/map">
           <ion-icon name="map"></ion-icon>
         </ion-tab-button>
-        <ion-tab-button tab="account" routerLink="/compte-infos">
+        <ion-tab-button *ngIf="this.isUserLoggedIn" tab="account" routerLink="/compte-infos">
           <ion-icon name="person"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button *ngIf="!this.isUserLoggedIn" tab="account" routerLink="/connexion">
+          <ion-icon name="log-in-outline"></ion-icon>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
