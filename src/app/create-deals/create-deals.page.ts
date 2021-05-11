@@ -1,9 +1,10 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {DealService} from '../entity/deal.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { DealService } from '../entity/deal.service';
+import {Product} from '../interfaces/product';
 import {FirebaseUser, FirebaseX} from '@ionic-native/firebase-x/ngx';
-import {ToastController} from '@ionic/angular';
+import {Platform, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-create-deals',
@@ -23,17 +24,20 @@ export class CreateDealsPage implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private zone: NgZone,
               private dealService: DealService,private route: ActivatedRoute,
-              private firebase: FirebaseX, public toastController: ToastController) {
+              private firebase: FirebaseX, public toastController: ToastController,
+              private platform: Platform) {
     this.route.params.subscribe(params => {
       this.produitId = params.produitId;
       if(params.produitImage){
         this.produitImage = params.produitImage;
       }
     });
+
   }
 
   ngOnInit() {
-    let uid: string = null;
+    let uid: string;
+    let productId: string;
     this.dealForm = this.fb.group({
       title: [''],
       description: [''],
@@ -43,10 +47,12 @@ export class CreateDealsPage implements OnInit {
       imageId: this.produitImage,
       dateCreation: [''],
       author: uid,
+      productSku: this.produitId,
       expired: false,
       storeId: '1',
       vote: 0,
     });
+
   }
 
   onFormSubmit() {
@@ -56,22 +62,23 @@ export class CreateDealsPage implements OnInit {
       this.alerteToast();
       return false;
     } else {
-      this.getCurrentUserPromise().then((data: FirebaseUser) => {
-        this.dealForm.value.uid = data.uid;
-        this.dealService.addDeal(this.dealForm.value)
-          .subscribe((res) => {
-            this.zone.run(() => {
-              console.log(res);
-              this.dealForm.reset();
-              this.router.navigate(['/deals']);
-            });
-          });
-        }
-      );
+      this.platform.ready().then(() => {
+        this.getCurrentUserPromise().then((data: FirebaseUser) => {
+            this.dealForm.value.author = data.uid;
+            this.dealService.addDeal(this.dealForm.value)
+              .subscribe((res) => {
+                this.zone.run(() => {
+                  console.log(res);
+                  this.dealForm.reset();
+                  this.router.navigate(['/deals']);
+                });
+              });
+          }
+        );
+      })
 
     }
   }
-
   calcReductionPrix(operation) {
     if (operation === 'Pourcentage') {
       const prixSoustrait = (this.prixInitiale * this.reduction)/100;
