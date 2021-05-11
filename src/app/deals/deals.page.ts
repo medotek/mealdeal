@@ -31,15 +31,25 @@ export class DealsPage implements OnInit {
     for(let i = 0; i < 10; i++){
       this.test[i] = this.listHugo[i];
     };
-    this.getAllDeals();
+    this.getAllDeals(null);
   }
-  getAllDeals() {
+  getAllDeals(event) {
     this.platform.ready().then(() => {
       this.dealService.getDealList().subscribe((res) => {
         this.result = res;
-      });
+
+        if (event)
+          event.target.complete();
+      }, error => {
+        console.log(error);
+
+        if (event)
+          event.target.complete();
+      })
     });
   }
+
+
   loadData(event) {
     setTimeout(() => {
       const length = this.test.length;
