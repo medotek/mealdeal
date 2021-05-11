@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DealService } from '../entity/deal.service';
 import {Product} from '../interfaces/product';
+import {FirebaseUser, FirebaseX} from "@ionic-native/firebase-x/ngx";
 
 @Component({
   selector: 'app-create-deals',
@@ -21,7 +22,8 @@ export class CreateDealsPage implements OnInit {
   private date: any;
 
   constructor(private router: Router, private fb: FormBuilder, private zone: NgZone,
-              private dealService: DealService,private route: ActivatedRoute,) {
+              private dealService: DealService,private route: ActivatedRoute,
+              private firebase: FirebaseX) {
     this.route.params.subscribe(params => {
       this.produitId = params.produitId;
       if(params.produitImage){
@@ -31,6 +33,7 @@ export class CreateDealsPage implements OnInit {
   }
 
   ngOnInit() {
+    let uid: string;
     this.dealForm = this.fb.group({
       title: [''],
       description: [''],
@@ -39,10 +42,16 @@ export class CreateDealsPage implements OnInit {
       salePercent: [''],
       imageId: this.produitImage,
       dateCreation: [''],
+      author: uid,
       expired: false,
       storeId: '1',
       vote: 0,
     });
+    this.getCurrentUserPromise().then((data: FirebaseUser) => {
+        uid = data.uid;
+      this.dealForm.value.uid = uid
+      }
+    )
   }
 
   onFormSubmit() {
@@ -51,6 +60,7 @@ export class CreateDealsPage implements OnInit {
     if (!this.dealForm.valid) {
       return false;
     } else {
+
       this.dealService.addDeal(this.dealForm.value)
         .subscribe((res) => {
           this.zone.run(() => {
@@ -71,7 +81,13 @@ export class CreateDealsPage implements OnInit {
     }
   }
   cancelDeal(){
-    this.router.navigate(['/deals']);
+    if (confirm("Voulez-vous annuler le deal?"))
+      this.router.navigate(['/deals']);
   }
 
+
+  getCurrentUserPromise() {
+    return this.firebase.getCurrentUser()
+
+  }
 }
