@@ -21,17 +21,19 @@ export class ConnexionPage implements OnInit {
               public navCtrl: NavController
               // private window: Window
   ) {
-    this.platform.ready().then(() => {
-      this.firebase.isUserSignedIn().then(() => {
-        this.router.navigate(['compte-infos']);
-      }).catch(r => {
-        console.log(r)
-      })
-    })
+
   }
 
-  ngOnInit() {
 
+
+  ngOnInit() {
+    this.platform.ready().then(() => {
+      this.authentication.isUserLogged().then((r) => {
+        if(r) {
+          this.router.navigate(['compte-infos']);
+        }
+      }).catch(error => console.log(error))
+    })
   }
 
 

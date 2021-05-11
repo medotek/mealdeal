@@ -22,22 +22,20 @@ export class DealsPage implements OnInit {
               private platform: Platform,
               private firebase: FirebaseX,
               private dealService: DealService,
-              private router: Router,) {
+              private router: Router,
+              private auth: AuthenticationService) {
     this.platform.ready().then(() => {
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
-      this.platform.ready().then(() => {
-        this.firebase.isUserSignedIn().then(() => {
-          this.isUserLoggedIn = true
-        }).catch(r => {
-          console.log(r)
-          this.isUserLoggedIn = false
-        })
-      })
       }
     );
   }
 
   ngOnInit() {
+    this.platform.ready().then(() => {
+      this.auth.isUserLogged().then((r) => {
+        this.isUserLoggedIn = r;
+      }).catch(() => this.isUserLoggedIn = false)
+    })
     this.getAllDeals(null);
   }
 
@@ -82,7 +80,8 @@ export class DealsPage implements OnInit {
        this.router.navigate(['info-produit-to-deal']);
      }).catch(r => {
        console.log(r)
-       this.router.navigate(['connexion']);})
+       this.router.navigate(['connexion']);
+     })
     })
     console.log(this.firebase.getCurrentUser());
   }

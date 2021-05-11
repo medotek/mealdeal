@@ -10,9 +10,6 @@
   </ion-refresher>
 
   <ion-list>
-    <!--        <ion-item *ngFor="let item of test">-->
-    <!--          {{item}}-->
-    <!--        </ion-item>-->
     <ion-item *ngFor="let item of result">
       <app-deals-component [title]="item.title" [image]="item.imageId" [price]="item.price" [oldPrice]="item.oldPrice"
                            [salePercent]="item.salePercent" [vote]="item.vote" [dateCreation]="item.dateCreation"

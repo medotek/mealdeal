@@ -3,6 +3,9 @@ import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
+import {AuthenticationService} from "../services/authentication.service";
+import {Platform} from "@ionic/angular";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-info-produit-to-deal',
@@ -19,9 +22,18 @@ export class InfoProduitToDealPage implements OnInit {
   public search = false;
   public scanne = false;
 
-  constructor(private scanner: BarcodeScanner,private homeService: HomeService,) { }
+  constructor(private scanner: BarcodeScanner,private homeService: HomeService,
+              private auth:AuthenticationService, private platform:Platform,
+              private router:Router){ }
 
   ngOnInit() {
+    this.platform.ready().then(() => {
+      this.auth.isUserLogged().then((r) => {
+        if(!r) {
+          this.router.navigate(['compte-infos']);
+        }
+      }).catch((error) => console.log(error))
+    })
   }
 
   scanBRcode() {

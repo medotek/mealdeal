@@ -47,6 +47,9 @@ export class AuthenticationService {
     })
   }
 
+  isUserLogged() {
+    return this.firebase.isUserSignedIn()
+  }
 
   logout() {
     this.platform.ready().then(() =>

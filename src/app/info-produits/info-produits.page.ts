@@ -7,6 +7,7 @@ import {DealService} from "../entity/deal.service";
 import {Deal} from "../entity/deal";
 import {IonInfiniteScroll, Platform} from "@ionic/angular";
 import {FirebaseX} from "@ionic-native/firebase-x/ngx";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-info-produits',
@@ -35,20 +36,17 @@ export class InfoProduitsPage implements OnInit {
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
               private dealService: DealService,
               private platform: Platform,
-              private firebase: FirebaseX
+              private firebase: FirebaseX,
+              private auth: AuthenticationService
   ) {
-
-    this.platform.ready().then(() => {
-      this.firebase.isUserSignedIn().then(() => {
-        this.isUserLoggedIn = true
-      }).catch(r => {
-        console.log(r)
-        this.isUserLoggedIn = false
-      })
-    })
   }
 
   ngOnInit() {
+    this.platform.ready().then(() => {
+      this.auth.isUserLogged().then((r) => {
+        this.isUserLoggedIn = r;
+      }).catch(() => this.isUserLoggedIn = false)
+    })
   }
 
   searchDeal() {

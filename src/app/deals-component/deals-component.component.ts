@@ -25,7 +25,7 @@ export class DealsComponentComponent implements OnInit {
   ngOnInit() {}
 
   moreInformations() {
-    this.router.navigate(['/deal-information', {page: 'deals', idDeal: this.id}]);
+    this.router.navigate(['deal-information', {page: 'deals', idDeal: this.id}]);
   }
 
 }
