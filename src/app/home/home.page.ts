@@ -1,16 +1,15 @@
+import { DealService } from './../entity/deal.service';
 import {DealPrototype} from './../class/deal-prototype';
 import {Deal} from './../interfaces/deal';
-import {DaoService} from './../services/dao.service';
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
-import {FirebaseX} from '@ionic-native/firebase-x/ngx';
-import {Platform} from '@ionic/angular';
+import {FirebaseX} from "@ionic-native/firebase-x/ngx";
+import { Platform } from '@ionic/angular';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import {HttpHeaders} from '@angular/common/http';
-import {DealService} from '../entity/deal.service';
 import {Router} from '@angular/router';
 
 
@@ -19,43 +18,47 @@ import {Router} from '@angular/router';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   encodedData: any;
   scannedBarCode: string;
   barcodeScannerOptions: BarcodeScannerOptions;
   public response: API;
   public monProduit: Product;
-  public isUserLoggedIn: string;
+
+  //state
+  public oui = false;
+  public isUserLoggedIn: boolean = false;
 
   Deals: any = [];
 
-  constructor(private scanner: BarcodeScanner, private homeService: HomeService, private router: Router,
+  constructor(private platform: Platform,
+              private scanner: BarcodeScanner,
+              private homeService: HomeService,
               private firebase: FirebaseX,
-              private dao: DaoService,
-              private platform: Platform,
-              private http: HTTP,
-              private dealService: DealService
-              ) {
-
+              private dealService: DealService,
+              private http: HTTP) {
 
     this.encodedData = 'Programming isn\'t about what you know';
+
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
     };
-    this.platform.ready().then(() =>
+
+    platform.ready().then(() => {
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
-    );
+    }).then();
+
     this.homeService.searchProduct('5410041040807').subscribe((data: API) => {
       this.response = data;
       // récupère uniquement le tableau product
       console.log(this.response.product);
-    });
+
+    })
   }
 
   ngOnInit() {
     this.isUserLogged();
-    this.getAllDeals();
   }
 
   createAccount() {
@@ -64,17 +67,6 @@ export class HomePage implements OnInit {
           console.log(r)
           //execute db queries
         )
-      // FirebasePlugin.authenticateUserWithEmailAndPassword(email, password, function(credential) {
-      //   console.log("Successfully authenticated with email/password");
-      //   FirebasePlugin.reauthenticateWithCredential(credential, function() {
-      //     console.log("Successfully re-authenticated");
-      //   }, function(error) {
-      //     console.error("Failed to re-authenticate", error);
-      //   });
-      //   // User is now signed in
-      // }, function(error) {
-      //   console.error("Failed to authenticate with email/password", error);
-      // });
     );
   }
 
@@ -102,7 +94,6 @@ export class HomePage implements OnInit {
       this.firebase.signOutUser().then(r => {
         if (r) {
           console.log('logged out ' + r);
-          this.router.navigate(['/connexion']);
         } else {
           console.log('not logged out' + r);
         }
@@ -114,16 +105,18 @@ export class HomePage implements OnInit {
   }
 
   isUserLogged() {
-    this.platform.ready().then(() =>
+    this.platform.ready().then(() => {
       this.firebase.isUserSignedIn().then(r => {
         if (r) {
-          this.isUserLoggedIn = 'connecté';
+          this.isUserLoggedIn = true;
         } else {
-          this.isUserLoggedIn = 'non connecté';
+          this.isUserLoggedIn = false;
         }
       })
-    );
+    })
+
   }
+
 
   scanBRcode() {
     this.scanner.scan().then(res => {
@@ -132,6 +125,10 @@ export class HomePage implements OnInit {
       this.homeService.searchProduct(this.scannedBarCode).subscribe((data: API) => {
         this.response = data;
         this.monProduit = this.response.product;
+        this.oui = true;
+      });
+      this.homeService.searchProduct(this.scannedBarCode).subscribe(res => {
+        console.log(res);
       });
     });
   }
