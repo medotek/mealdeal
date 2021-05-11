@@ -1,7 +1,7 @@
 <ion-card>
   <ion-card-header (click)="moreInformations()">
-    <ion-img *ngIf="image" style="width: 30%" [src]=image></ion-img>
-    <ion-img *ngIf="!image"style="width: 30%" [src]=img></ion-img>
+    <ion-img *ngIf="image" [src]=image></ion-img>
+    <ion-img *ngIf="!image" [src]=img></ion-img>
     <ion-card-subtitle>{{title}}</ion-card-subtitle>
     <ion-card-subtitle><del>{{oldPrice}}€</del> -> {{price}}€</ion-card-subtitle>
     <ion-card-subtitle>{{salePercent}}%</ion-card-subtitle>
