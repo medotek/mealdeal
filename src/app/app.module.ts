@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 import {environment} from '../environments/environment';
+import {FirebaseX} from "@ionic-native/firebase-x/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import {environment} from '../environments/environment';
     AppRoutingModule,
   ],
   providers: [
+    FirebaseX,
     HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner
