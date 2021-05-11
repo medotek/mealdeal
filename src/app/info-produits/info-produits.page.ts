@@ -3,9 +3,9 @@ import {Welcome as API} from '../interfaces/welcome';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
 import {Product} from '../interfaces/product';
-import {DealService} from "../entity/deal.service";
-import {Deal} from "../entity/deal";
-import {IonInfiniteScroll} from "@ionic/angular";
+import {DealService} from '../entity/deal.service';
+import {Deal} from '../entity/deal';
+import {IonInfiniteScroll} from '@ionic/angular';
 
 @Component({
   selector: 'app-info-produits',
@@ -21,7 +21,6 @@ export class InfoProduitsPage implements OnInit {
   public Deal: Deal[];
   public query: string;
   public searchResults: any[] = [];
-  private result: any[] = [];
   public search = false;
   public scanne = false;
   public isUserLoggedIn = false;
@@ -30,6 +29,7 @@ export class InfoProduitsPage implements OnInit {
   public listHugo = ['1','2','3','4','5','6','7','8','9','10','11','12',
     '13','14','15','16','17','18','19','20','21','22'];
   public test = [''];
+  private result: any[] = [];
 
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
               private dealService: DealService
