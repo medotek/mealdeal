@@ -19,7 +19,6 @@
         <ion-label position="floating">Email</ion-label>
         <ion-input type="email" #email required></ion-input>
       </ion-item>
-      <ion-label *ngIf="erreurMail" [ngStyle]="{color: 'red', fontSize: '13px', marginLeft: '15px'}">L'adresse mail est déjà utilisé !</ion-label>
 
       <ion-item lines="full">
         <ion-label position="floating">Mot de passe</ion-label>
@@ -30,7 +29,6 @@
         <ion-label position="floating">Confirmer le mot de passe</ion-label>
         <ion-input type="password" #confirmPassword required></ion-input>
       </ion-item>
-      <ion-label *ngIf="erreurPassword" [ngStyle]="{color: 'red', fontSize: '13px', marginLeft: '15px'}">Les mots de passes ne sont pas identiques !</ion-label>
 
       <ion-row>
         <ion-col>
