@@ -21,8 +21,11 @@
         <ion-tab-button tab="map" routerLink="/map">
           <ion-icon name="map"></ion-icon>
         </ion-tab-button>
-        <ion-tab-button tab="account" routerLink="/compte-infos">
+        <ion-tab-button *ngIf="this.isUserLoggedIn" tab="account" routerLink="/compte-infos">
           <ion-icon name="person"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button *ngIf="!this.isUserLoggedIn" tab="account" routerLink="/connexion">
+          <ion-icon name="log-in-outline"></ion-icon>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>

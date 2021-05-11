@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapPage implements OnInit {
 
+  public isUserLoggedIn = false;
+
   constructor() { }
 
   ngOnInit() {

@@ -1,12 +1,12 @@
 import { DealService } from './../entity/deal.service';
 import {DealPrototype} from './../class/deal-prototype';
 import {Deal} from './../interfaces/deal';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
 import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
-import {FirebaseX} from "@ionic-native/firebase-x/ngx";
+import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import { Platform } from '@ionic/angular';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import {HttpHeaders} from '@angular/common/http';
@@ -18,7 +18,7 @@ import {Router} from '@angular/router';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
   encodedData: any;
   scannedBarCode: string;
   barcodeScannerOptions: BarcodeScannerOptions;
@@ -27,7 +27,7 @@ export class HomePage {
 
   //state
   public oui = false;
-  public isUserLoggedIn: boolean = false;
+  public isUserLoggedIn = false;
 
   Deals: any = [];
 
@@ -46,7 +46,7 @@ export class HomePage {
     };
 
     platform.ready().then(() => {
-      this.firebase.setLanguageCode('fr').then(r => console.log(r))
+      this.firebase.setLanguageCode('fr').then(r => console.log(r));
     }).then();
 
     this.homeService.searchProduct('5410041040807').subscribe((data: API) => {
@@ -54,7 +54,7 @@ export class HomePage {
       // récupère uniquement le tableau product
       console.log(this.response.product);
 
-    })
+    });
   }
 
   ngOnInit() {
@@ -112,8 +112,8 @@ export class HomePage {
         } else {
           this.isUserLoggedIn = false;
         }
-      })
-    })
+      });
+    });
 
   }
 

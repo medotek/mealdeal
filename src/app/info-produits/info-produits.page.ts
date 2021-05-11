@@ -18,6 +18,7 @@ export class InfoProduitsPage implements OnInit {
   public searchResults: any[] = [];
   public search = false;
   public scanne = false;
+  public isUserLoggedIn = false;
 
   constructor(private scanner: BarcodeScanner,private homeService: HomeService,) { }
 
