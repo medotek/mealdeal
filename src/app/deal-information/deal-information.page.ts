@@ -16,7 +16,6 @@ export class DealInformationPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private homeService: HomeService, private dealService: DealService, private router: Router) {
     this.route.params.subscribe( params => {
-      console.log("success deal info")
       if (params.id) {
         this.homeService.searchProduct(params.id).subscribe(res => {
           console.log(res['product']);
