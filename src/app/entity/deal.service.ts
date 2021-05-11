@@ -31,6 +31,14 @@ export class DealService {
       );
   }
 
+  getDealbyAuthor(uid: string): Observable<Deal[]> {
+    return this.http.get<Deal[]>('http://gudako.club:3001/api/get-user-deals/' + uid)
+      .pipe(
+        tap(deals => console.log(`Deals fetched from uid : ${uid}`)),
+        catchError(this.handleError<Deal[]>('Get Deals', []))
+      );
+  }
+
   getDealList(): Observable<Deal[]> {
     return this.http.get<Deal[]>('http://gudako.club:3001/api')
       .pipe(

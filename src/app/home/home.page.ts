@@ -57,6 +57,10 @@ export class HomePage {
     this.isUserLogged();
   }
 
+  ionViewWillEnter(){
+   this.isUserLogged();
+  }
+
   createAccount() {
     this.platform.ready().then(() =>
         this.firebase.createUserWithEmailAndPassword('test@test.fr', 'testtest').then(r =>
@@ -101,24 +105,14 @@ export class HomePage {
   }
 
   isUserLogged() {
-    // let isSignedIn: string = this.window.localStorage.getItem("SignedIn");
-    // if(this.window.localStorage.getItem("SignedIn")) {
-    //   if(isSignedIn = "1")
-    //     this.isUserLoggedIn = true;
-    //   else
-    //     this.isUserLoggedIn = false;
-    // } else {
-    //   this.platform.ready().then(() => {
-    //     this.firebase.isUserSignedIn().then(r => {
-    //       if (r) {
-    //         this.isUserLoggedIn = true;
-    //         this.window.localStorage.setItem("SignedIn","1");
-    //       } else {
-    //         this.isUserLoggedIn = false;
-    //         this.window.localStorage.setItem("SignedIn","0");
-    //       }
-    //     })
-    //   })
-    // }
+       this.platform.ready().then(() => {
+         this.firebase.isUserSignedIn().then(r => {
+           if (r) {
+             this.isUserLoggedIn = true;
+           } else {
+             this.isUserLoggedIn = false;
+           }
+         })
+       })
   }
 }
