@@ -26,7 +26,7 @@
 <ion-content *ngIf="search">
   <ion-list>
     <ion-item *ngFor="let item of searchResults">
-      <app-products-component [produit]="item" [nom]="item.product_name" [marque]="item.brands" [image]="item.image_front_url"></app-products-component>
+      <app-products-component [id]="item.code" [produit]="item" [nom]="item.product_name" [marque]="item.brands" [image]="item.image_front_url"></app-products-component>
     </ion-item>
   </ion-list>
 </ion-content>

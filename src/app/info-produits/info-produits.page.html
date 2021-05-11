@@ -12,7 +12,7 @@
 <ion-content *ngIf="search">
   <ion-list>
     <ion-item *ngFor="let item of Deal">
-      <app-products-component [nom]="item.title" [marque]="item.author" [image]="item.creation"></app-products-component>
+      <app-products-component [id]="item.code" [nom]="item.title" [marque]="item.author" [image]="item.creation"></app-products-component>
     </ion-item>
   </ion-list>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">

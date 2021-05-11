@@ -12,6 +12,7 @@ export class ProductsComponentComponent implements OnInit {
   @Input() nom: string;
   @Input() marque: string;
   @Input() image: string;
+  @Input() id: string;
   monImage;
 
   constructor(private router: Router) { }
@@ -24,6 +25,10 @@ export class ProductsComponentComponent implements OnInit {
     }else{
       this.router.navigate(['create-deals', {produitId: this.produit.id, produitImage: this.produit.image_front_url}]);
     }
+  }
+
+  moreInformations() {
+    this.router.navigate(['/deal-information', {page: 'info-produit-to-deal', id: this.id}]);
   }
 
 }

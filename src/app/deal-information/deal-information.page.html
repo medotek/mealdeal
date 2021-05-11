@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="{{page}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Informations</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="product row">
+    <div class="picture col">
+      <ion-img [src]="produit?.image_url" id="imageProduit"></ion-img>
+    </div>
+    <div class="information col-8">
+      <div class="title">
+        <h4>{{produit?.product_name}}</h4>
+      </div>
+
+      <div class="price row">
+        <div class="finalPrice col">
+          <p>50 €</p>
+        </div>
+        <div class="reduction col">
+          <p>50 %</p>
+        </div>
+        <div class="initialPrice col">
+          <p>100 €</p>
+        </div>
+      </div>
+
+      <div class="localisation row">
+        <div class="col-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill"
+               viewBox="0 0 16 16">
+            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+          </svg>
+        </div>
+        <div class="col">
+          <p>{{produit?.stores}}</p>
+        </div>
+      </div>
+
+      <div class="author">
+        <p>Auteur: {{produit?.creator}}</p>
+      </div>
+
+      <div class="goToDeal row">
+        <div class="col-5"></div>
+        <div class="col">
+          <ion-button color="primary" size="small">Vers le deal</ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="description row">
+    <div class="col-md-12">
+      <div class="ingredient">
+        <ngb-accordion #acc="ngbAccordion">
+          <ngb-panel id="toggle-1" title="Ingrédients">
+            <ng-template ngbPanelContent>
+              <ion-item *ngFor="let item of produit?.ingredients">
+                - {{item.text}} : {{item.percent_estimate}} %
+              </ion-item>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div> <br>
+
+      <div class="alergens" *ngIf="produit?.allergens_from_ingredients !== ''">
+        Les produits allergènes : {{produit?.allergens_from_ingredients}}
+      </div>
+
+      <br>
+
+      <div class="categorie">
+        Catégories : {{produit?.categories}}
+      </div>
+      <br>
+
+      <div class="nutriscore">
+        <h3>Nutriscore</h3>
+        <div *ngIf="produit?.nutriscore_grade === 'a'">
+          <ion-img src="../../assets/nutriscore/nutriscore-a.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nutriscore_grade === 'b'">
+          <ion-img src="../../assets/nutriscore/nutriscore-b.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nutriscore_grade === 'c'">
+          <ion-img src="../../assets/nutriscore/nutriscore-c.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nutriscore_grade === 'd'">
+          <ion-img src="../../assets/nutriscore/nutriscore-d.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nutriscore_grade === 'e'">
+          <ion-img src="../../assets/nutriscore/nutriscore-e.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.ecoscore_grade !== 'e' && produit?.ecoscore_grade !== 'd' && produit?.ecoscore_grade !== 'c'
+                    && produit?.ecoscore_grade !== 'b' && produit?.ecoscore_grade !== 'a'">
+          <ion-img src="../../assets/nutriscore/nutriscore-unknown.svg"></ion-img>
+        </div>
+      </div>
+
+      <div class="ecoscore">
+        <h3>Ecoscore</h3>
+        <div *ngIf="produit?.ecoscore_grade === 'a'">
+          <ion-img src="../../assets/ecoscore/ecoscore-a.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.ecoscore_grade === 'b'">
+          <ion-img src="../../assets/ecoscore/ecoscore-b.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.ecoscore_grade === 'c'">
+          <ion-img src="../../assets/ecoscore/ecoscore-c.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.ecoscore_grade === 'd'">
+          <ion-img src="../../assets/ecoscore/ecoscore-d.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.ecoscore_grade === 'e'">
+          <ion-img src="../../assets/ecoscore/ecoscore-e.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.ecoscore_grade !== 'e' && produit?.ecoscore_grade !== 'd' && produit?.ecoscore_grade !== 'c'
+                    && produit?.ecoscore_grade !== 'b' && produit?.ecoscore_grade !== 'a'">
+          <ion-img src="../../assets/ecoscore/ecoscore-unknown.svg"></ion-img>
+        </div>
+      </div>
+
+      <div class="nova-group">
+        <h3>Nova Group</h3>
+        <div *ngIf="produit?.nova_groups === '1'">
+          <ion-img src="../../assets/nova-group/nova-group-1.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nova_groups === '2'">
+          <ion-img src="../../assets/nova-group/nova-group-2.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nova_groups === '3'">
+          <ion-img src="../../assets/nova-group/nova-group-3.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nova_groups === '4'">
+          <ion-img src="../../assets/nova-group/nova-group-4.svg"></ion-img>
+        </div>
+        <div *ngIf="produit?.nova_groups !== '4' && produit?.nova_groups !== '3' && produit?.nova_groups !== '2' && produit?.nova_groups !== '1'">
+          <ion-img src="../../assets/nova-group/nova-group-unknown.svg"></ion-img>
+        </div>
+        <p>{{produit?.conservation_conditions}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
