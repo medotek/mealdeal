@@ -41,8 +41,4 @@ export class DealInformationPage implements OnInit {
   ngOnInit() {
   }
 
-  returnDeals() {
-    this.router.navigate(['/deals']);
-  }
-
 }
