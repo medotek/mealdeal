@@ -43,12 +43,12 @@ export class AuthenticationService {
         .catch((error) => {
           this.errorCode = error.code;
           this.errorMessage = error.message;
-        })
-    })
+        });
+    });
   }
 
   isUserLogged() {
-    return this.firebase.isUserSignedIn()
+    return this.firebase.isUserSignedIn();
   }
 
   logout() {
