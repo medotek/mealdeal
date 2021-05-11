@@ -1,8 +1,9 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationService} from '../services/authentication.service';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Platform} from '@ionic/angular';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-connexion',
@@ -11,14 +12,10 @@ import {Platform} from '@ionic/angular';
 })
 export class ConnexionPage implements OnInit {
   public isUserLoggedIn: string;
-  erreur = false;
+  public message: string = null;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private authentication: AuthenticationService,
-              private firebase: FirebaseX,
-              private platform: Platform,
-              // private window: Window
+              private auth: AuthenticationService
   ) {
   }
 
@@ -26,17 +23,13 @@ export class ConnexionPage implements OnInit {
   }
 
   signUp(email, password){
-    this.platform.ready().then(r =>
-      this.firebase.signInUserWithEmailAndPassword(email.value, password.value).then(res => {
-        this.erreur = false;
-        //Pour verifier si l'utilisateur est connecté -> verifier la variable du local storage
-        // this.window.localStorage.setItem("SignedIn","1");
+    this.auth.login(email.value, password.value)
+      .then(() => {
         this.router.navigate(['/deals']);
-        }, () => {
-          this.erreur = true;
-        }
-      )
-    );
+        this.message = null;
+      }).catch((error) => {
+        this.message = error.message;
+      });
   }
 
   changePassword() {

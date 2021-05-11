@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../services/authentication.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from '../services/home.service';
 import {Deal} from '../interfaces/deal';
@@ -17,11 +18,11 @@ export class DealsPage implements OnInit {
   public listHugo = ['1','2','3','4','5','6','7','8','9','10','11','12',
     '13','14','15','16','17','18','19','20','21','22'];
   public test = [''];
-  public isUserLoggedIn = false;
+  public isUserLoggedIn;
   private result: any[] = [];
 
   constructor(private homeService: HomeService, private platform: Platform,
-              private firebase: FirebaseX,private dealService: DealService, private router: Router,) {
+              private firebase: FirebaseX,private dealService: DealService, private router: Router,private auth: AuthenticationService) {
     this.platform.ready().then(() =>
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
     );
@@ -33,6 +34,12 @@ export class DealsPage implements OnInit {
     };
     this.getAllDeals(null);
   }
+
+  ionViewWillEnter(){
+    this.isUserLoggedIn = this.auth.getAuthentificationStatus() === 1 ? true : false;
+    console.log(this.isUserLoggedIn);
+  }
+
   getAllDeals(event) {
     this.platform.ready().then(() => {
       this.dealService.getDealList().subscribe((res) => {
@@ -64,5 +71,6 @@ export class DealsPage implements OnInit {
   addDeals(){
     this.router.navigate(['info-produit-to-deal']);
   }
+
 
 }
