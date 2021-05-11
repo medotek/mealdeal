@@ -33,7 +33,9 @@
 </ion-content>
 
 <ion-content>
-  <ion-label> user: {{this.isUserLoggedIn}}  </ion-label>
+  <ion-label *ngIf="this.isUserLoggedIn"> L'utilisateur est connecté! </ion-label>
+  <ion-label *ngIf="!this.isUserLoggedIn"> L'utilisateur n'est pas connecté  </ion-label>
+
   <ion-button (click)="createAccount()">create account</ion-button>
   <ion-button (click)="authenticateWithEmail()">connect</ion-button>
   <ion-button (click)="logout()">logout</ion-button>
