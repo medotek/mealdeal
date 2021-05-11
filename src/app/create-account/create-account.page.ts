@@ -31,11 +31,11 @@ export class CreateAccountPage implements OnInit {
       this.platform.ready().then(r =>
         this.firebase.createUserWithEmailAndPassword(email.value, password.value).then(res => {
           this.erreurMail = false;
-          var user = new User();
+          const user = new User();
 
           this.getCurrentUserPromise().then((data: FirebaseUser ) => {
             user.nickname = nickname;
-            var date = new Date();
+            const date = new Date();
             user.creationDate = new Date(date.getTime() -date.getTimezoneOffset()*60000);
             user.uid = data.uid
             this.addUser(user);
