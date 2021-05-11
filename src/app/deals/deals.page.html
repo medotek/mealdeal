@@ -13,7 +13,7 @@
     <ion-item *ngFor="let item of result">
       <app-deals-component [title]="item.title" [image]="imageTmp" [price]="item.price" [oldPrice]="item.oldPrice"
                            [salePercent]="item.salePercent" [vote]="item.vote" [dateCreation]="item.dateCreation"
-                           [description]="item.description" [expired]="item.expired" [id]="item.code"></app-deals-component>
+                           [description]="item.description" [expired]="item.expired" [id]="item._id"></app-deals-component>
     </ion-item>
   </ion-list>
 

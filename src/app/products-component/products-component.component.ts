@@ -13,6 +13,7 @@ export class ProductsComponentComponent implements OnInit {
   @Input() marque: string;
   @Input() image: string;
   @Input() id: number;
+  @Input() idDeal: number;
   monImage;
 
   constructor(private router: Router) { }
@@ -28,7 +29,7 @@ export class ProductsComponentComponent implements OnInit {
   }
 
   moreInformations() {
-    this.router.navigate(['/deal-information', {page: 'info-produit-to-deal', id: this.id}]);
+    this.router.navigate(['/deal-information', {page: 'info-produit-to-deal', id: this.id, idDeal: this.idDeal}]);
   }
 
 }
