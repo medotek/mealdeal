@@ -1,14 +1,14 @@
 <ion-card>
   <ion-card-header (click)="moreInformations()">
-    <ion-img style="width: 30%" [src]=image></ion-img>
-    <ion-card-subtitle>title : {{title}}</ion-card-subtitle>
-    <ion-card-subtitle>price : {{price}}</ion-card-subtitle>
-    <ion-card-subtitle>oldPrice : {{oldPrice}}</ion-card-subtitle>
-    <ion-card-subtitle>salePercent : {{salePercent}}</ion-card-subtitle>
+    <ion-img *ngIf="image" [src]=image></ion-img>
+    <ion-img *ngIf="!image" [src]=img></ion-img>
+    <ion-card-subtitle>{{title}}</ion-card-subtitle>
+    <ion-card-subtitle><del>{{oldPrice}}€</del> -> {{price}}€</ion-card-subtitle>
+    <ion-card-subtitle>{{salePercent}}%</ion-card-subtitle>
     <ion-card-subtitle>vote : {{vote}}</ion-card-subtitle>
     <ion-card-subtitle>dateCreation : {{dateCreation}}</ion-card-subtitle>
-    <ion-card-subtitle>description : {{description}}</ion-card-subtitle>
-    <ion-card-subtitle>expired : {{expired}}</ion-card-subtitle>
+    <ion-card-subtitle>Description : {{description}}</ion-card-subtitle>
+    <ion-card-subtitle>Expiré : {{expired}}</ion-card-subtitle>
   </ion-card-header>
 </ion-card>
 
