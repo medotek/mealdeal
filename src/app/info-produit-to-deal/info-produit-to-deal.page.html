@@ -9,7 +9,7 @@
 
 <ion-content style="text-align: center">
 
-  <ion-searchbar placeholder="Nom, Marque,..." [(ngModel)]="monFiltre" (ionChange)="updateFilter()"></ion-searchbar>
+  <ion-searchbar placeholder="Saisir une marque" [(ngModel)]="monFiltre" (ionChange)="updateFilter()"></ion-searchbar>
 
   <ion-label>Ou</ion-label>
   <ion-button class="myButton" color="primary" expand="block" (click)="scanBRcode()">
