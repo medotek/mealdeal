@@ -56,10 +56,10 @@ export class DealService {
   }
 
   searchDeal(query): Observable<Deal[]> {
-    return this.http.delete<Deal[]>('http://gudako.club:3001/api/search-deal/' + query, this.httpOptions)
+    return this.http.get<Deal[]>('http://gudako.club:3001/api/search-deal/' + query, this.httpOptions)
       .pipe(
-        tap(_ => console.log(`Searched: ${query}`)),
-        catchError(this.handleError<Deal[]>('Delete Deal'))
+        tap(deals => console.log('Deals fetched!')),
+        catchError(this.handleError<Deal[]>('Get Deals', []))
       );
   }
 
