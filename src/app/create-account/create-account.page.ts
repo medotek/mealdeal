@@ -27,7 +27,7 @@ export class CreateAccountPage implements OnInit {
       this.platform.ready().then(r =>
         this.firebase.createUserWithEmailAndPassword(email.value, password.value).then(res => {
           this.erreurMail = false;
-              this.router.navigate(['/home']);
+          this.router.navigate(['/home']);
           //execute db queries
         }, () => {
           this.erreurMail = true;
@@ -37,18 +37,6 @@ export class CreateAccountPage implements OnInit {
       this.erreurPassword = true;
       alert('Les mots de passes ne sont pas identiques !');
     }
-  }
-
-  emailIsVerified(email, password) {
-    this.platform.ready().then(r =>
-      this.firebase.signInUserWithEmailAndPassword(email.value, password.value).then(() => {
-        this.firebase.getCurrentUser().then(res => {
-          console.log(res);
-          this.firebase.signOutUser();
-        });
-        }
-      )
-    );
   }
 
 }
