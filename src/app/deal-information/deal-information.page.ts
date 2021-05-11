@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HomeService} from '../services/home.service';
 import {DealService} from '../entity/deal.service';
+import {UserService} from '../entity/user.service';
 
 @Component({
   selector: 'app-deal-information',
@@ -13,10 +14,11 @@ export class DealInformationPage implements OnInit {
   page;
   produit;
   productDeal;
+  auteur;
 
-  constructor(private route: ActivatedRoute, private homeService: HomeService, private dealService: DealService, private router: Router) {
+  constructor(private route: ActivatedRoute, private homeService: HomeService, private dealService: DealService, private router: Router,
+              private user: UserService) {
     this.route.params.subscribe( params => {
-      console.log("success deal info")
       if (params.id) {
         this.homeService.searchProduct(params.id).subscribe(res => {
           console.log(res['product']);
@@ -26,7 +28,9 @@ export class DealInformationPage implements OnInit {
 
       if (params.idDeal) {
         this.dealService.getDeal(params.idDeal).subscribe(r => {
-          console.log(r);
+          this.user.getUserInfos(r['author']).subscribe(res =>{
+            this.auteur = res.nickname;
+          });
           this.productDeal = r;
         });
       }

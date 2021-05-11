@@ -51,6 +51,7 @@ export class CreateDealsPage implements OnInit {
       expired: false,
       storeId: '1',
       vote: 0,
+      produitSku: this.produitId
     });
 
   }

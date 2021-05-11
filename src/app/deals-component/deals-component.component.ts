@@ -18,6 +18,7 @@ export class DealsComponentComponent implements OnInit {
   @Input() dateCreation: Date;
   @Input() expired: boolean;
   @Input() id: string;
+  @Input() idDeal: number;
   public img = '/assets/icon/favicon.png';
 
   constructor(private router: Router) { }
@@ -25,7 +26,7 @@ export class DealsComponentComponent implements OnInit {
   ngOnInit() {}
 
   moreInformations() {
-    this.router.navigate(['deal-information', {page: 'deals', idDeal: this.id}]);
+    this.router.navigate(['deal-information', {page: 'deals', idDeal: this.idDeal, id: this.id}]);
   }
 
 }
