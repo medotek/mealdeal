@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { DealInformationPageRoutingModule } from './deal-information-routing.module';
 
 import { DealInformationPage } from './deal-information.page';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbAccordionModule} from "@ng-bootstrap/ng-bootstrap";
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     IonicModule,
     DealInformationPageRoutingModule,
-    NgbModule
+    NgbAccordionModule,
+    // NgbModule
   ],
   declarations: [DealInformationPage]
 })

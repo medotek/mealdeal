@@ -2,7 +2,7 @@ export class Deal {
   _id: number;
   title: string;
   author: string;
-  product_sku?: string; //code-barre
+  productSku?: string; //code-barre
   price?: number;
   creation?: Date;
   expired?: boolean;

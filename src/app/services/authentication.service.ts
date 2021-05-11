@@ -19,7 +19,8 @@ export class AuthenticationService {
   constructor(
     private firebase: FirebaseX,
     private platform: Platform
-  ) {}
+  ) {
+  }
 
   public getErrorCode() {
     return this.errorCode;
@@ -46,6 +47,9 @@ export class AuthenticationService {
     })
   }
 
+  isUserLogged() {
+    return this.firebase.isUserSignedIn()
+  }
 
   logout() {
     this.platform.ready().then(() =>

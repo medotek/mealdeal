@@ -2,3 +2,9 @@
   width: 50%;
   height: 50%;
 }
+
+.row  {
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+

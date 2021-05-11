@@ -10,15 +10,20 @@
   </ion-refresher>
 
   <ion-list>
-    <!--        <ion-item *ngFor="let item of test">-->
-    <!--          {{item}}-->
-    <!--        </ion-item>-->
     <ion-item *ngFor="let item of result">
       <app-deals-component [title]="item.title" [image]="item.imageId" [price]="item.price" [oldPrice]="item.oldPrice"
                            [salePercent]="item.salePercent" [vote]="item.vote" [dateCreation]="item.dateCreation"
                            [description]="item.description" [expired]="item.expired" [id]="item._id"></app-deals-component>
     </ion-item>
   </ion-list>
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addDeals()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
@@ -27,12 +32,8 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addDeals()">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
+
 
 <ion-footer>
   <ion-toolbar>

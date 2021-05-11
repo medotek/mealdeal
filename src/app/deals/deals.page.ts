@@ -5,6 +5,7 @@ import {IonInfiniteScroll, Platform} from '@ionic/angular';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {DealService} from '../entity/deal.service';
 import {Router} from '@angular/router';
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-deals',
@@ -14,25 +15,30 @@ import {Router} from '@angular/router';
 export class DealsPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   public imageTmp = '/assets/icon/favicon.png';
-  public listHugo = ['1','2','3','4','5','6','7','8','9','10','11','12',
-    '13','14','15','16','17','18','19','20','21','22'];
-  public test = [''];
   public isUserLoggedIn = false;
   private result: any[] = [];
 
-  constructor(private homeService: HomeService, private platform: Platform,
-              private firebase: FirebaseX,private dealService: DealService, private router: Router,) {
-    this.platform.ready().then(() =>
+  constructor(private homeService: HomeService,
+              private platform: Platform,
+              private firebase: FirebaseX,
+              private dealService: DealService,
+              private router: Router,
+              private auth: AuthenticationService) {
+    this.platform.ready().then(() => {
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
+      }
     );
   }
 
   ngOnInit() {
-    for(let i = 0; i < 10; i++){
-      this.test[i] = this.listHugo[i];
-    };
+    this.platform.ready().then(() => {
+      this.auth.isUserLogged().then((r) => {
+        this.isUserLoggedIn = r;
+      }).catch(() => this.isUserLoggedIn = false)
+    })
     this.getAllDeals(null);
   }
+
   getAllDeals(event) {
     this.platform.ready().then(() => {
       this.dealService.getDealList().subscribe((res) => {
@@ -52,17 +58,32 @@ export class DealsPage implements OnInit {
 
   loadData(event) {
     setTimeout(() => {
-      const length = this.test.length;
-      if(length < this.listHugo.length){
-        for (let i = length; i < length + 10; i++){
-          this.test[i] = this.listHugo[i];
-        }
-      }
-      event.target.complete();
-    }, 500);
+      this.platform.ready().then(() => {
+        this.dealService.getDealList().subscribe((res) => {
+          console.log('Done');
+          event.target.complete();
+          // App logic to determine if all data is loaded
+          // and disable the infinite scroll
+          if (res.length == 200) {
+            event.target.disabled = true;
+          }
+        }, (error) => {})
+        })
+    }, 1000);
   }
-  addDeals(){
-    this.router.navigate(['info-produit-to-deal']);
+
+
+
+  addDeals() {
+    this.platform.ready().then(() => {
+     this.firebase.isUserSignedIn().then(() => {
+       this.router.navigate(['info-produit-to-deal']);
+     }).catch(r => {
+       console.log(r)
+       this.router.navigate(['connexion']);
+     })
+    })
+    console.log(this.firebase.getCurrentUser());
   }
 
 }

@@ -1,8 +1,7 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { DealService } from '../entity/deal.service';
-import {Product} from '../interfaces/product';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {DealService} from '../entity/deal.service';
 import {FirebaseUser, FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {ToastController} from '@ionic/angular';
 
@@ -34,7 +33,7 @@ export class CreateDealsPage implements OnInit {
   }
 
   ngOnInit() {
-    let uid: string;
+    let uid: string = null;
     this.dealForm = this.fb.group({
       title: [''],
       description: [''],
@@ -48,11 +47,6 @@ export class CreateDealsPage implements OnInit {
       storeId: '1',
       vote: 0,
     });
-    this.getCurrentUserPromise().then((data: FirebaseUser) => {
-        uid = data.uid;
-      this.dealForm.value.uid = uid;
-      }
-    );
   }
 
   onFormSubmit() {
@@ -62,15 +56,19 @@ export class CreateDealsPage implements OnInit {
       this.alerteToast();
       return false;
     } else {
-
-      this.dealService.addDeal(this.dealForm.value)
-        .subscribe((res) => {
-          this.zone.run(() => {
-            console.log(res);
-            this.dealForm.reset();
-            this.router.navigate(['/deals']);
+      this.getCurrentUserPromise().then((data: FirebaseUser) => {
+        this.dealForm.value.uid = data.uid;
+        this.dealService.addDeal(this.dealForm.value)
+          .subscribe((res) => {
+            this.zone.run(() => {
+              console.log(res);
+              this.dealForm.reset();
+              this.router.navigate(['/deals']);
+            });
           });
-        });
+        }
+      );
+
     }
   }
 
