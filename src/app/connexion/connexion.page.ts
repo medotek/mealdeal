@@ -31,7 +31,7 @@ export class ConnexionPage implements OnInit {
         this.erreur = false;
         //Pour verifier si l'utilisateur est connecté -> verifier la variable du local storage
         // this.window.localStorage.setItem("SignedIn","1");
-        this.router.navigate(['/home']);
+        this.router.navigate(['/deals']);
         }, () => {
           this.erreur = true;
         }
