@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HomeService} from '../services/home.service';
 import {DealService} from '../entity/deal.service';
 
@@ -14,7 +14,7 @@ export class DealInformationPage implements OnInit {
   produit;
   productDeal;
 
-  constructor(private route: ActivatedRoute, private homeService: HomeService, private dealService: DealService) {
+  constructor(private route: ActivatedRoute, private homeService: HomeService, private dealService: DealService, private router: Router) {
     this.route.params.subscribe( params => {
       console.log("success deal info")
       if (params.id) {
@@ -35,6 +35,10 @@ export class DealInformationPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  returnDeals() {
+    this.router.navigate(['/deals']);
   }
 
 }
