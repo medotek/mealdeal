@@ -10,7 +10,8 @@ import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 import {Platform} from '@ionic/angular';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import {HttpHeaders} from '@angular/common/http';
-import {DealService} from "../entity/deal.service";
+import {DealService} from '../entity/deal.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class HomePage implements OnInit {
 
   Deals: any = [];
 
-  constructor(private scanner: BarcodeScanner, private homeService: HomeService,
+  constructor(private scanner: BarcodeScanner, private homeService: HomeService, private router: Router,
               private firebase: FirebaseX,
               private dao: DaoService,
               private platform: Platform,
@@ -80,9 +81,9 @@ export class HomePage implements OnInit {
   getAllDeals() {
     this.platform.ready().then(() => {
       this.dealService.getDealList().subscribe((res) => {
-        console.log(res)
+        console.log(res);
         this.Deals = res;
-      })
+      });
     });
   }
 
@@ -101,6 +102,7 @@ export class HomePage implements OnInit {
       this.firebase.signOutUser().then(r => {
         if (r) {
           console.log('logged out ' + r);
+          this.router.navigate(['/connexion']);
         } else {
           console.log('not logged out' + r);
         }
