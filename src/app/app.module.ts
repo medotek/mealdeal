@@ -1,3 +1,4 @@
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -9,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 import {environment} from '../environments/environment';
-import {FirebaseX} from "@ionic-native/firebase-x/ngx";
 
 @NgModule({
   declarations: [AppComponent],

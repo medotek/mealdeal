@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { CreateAccountPageRoutingModule } from './create-account-routing.module';
 
 import { CreateAccountPage } from './create-account.page';
-import {FirebaseX} from '@ionic-native/firebase-x/ngx';
 
 @NgModule({
   imports: [
@@ -17,7 +16,6 @@ import {FirebaseX} from '@ionic-native/firebase-x/ngx';
     CreateAccountPageRoutingModule
   ],
   providers: [
-    FirebaseX,
   ],
   declarations: [CreateAccountPage]
 })
