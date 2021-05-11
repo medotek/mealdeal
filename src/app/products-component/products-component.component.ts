@@ -12,7 +12,7 @@ export class ProductsComponentComponent implements OnInit {
   @Input() nom: string;
   @Input() marque: string;
   @Input() image: string;
-  @Input() id: string;
+  @Input() id: number;
   monImage;
 
   constructor(private router: Router) { }

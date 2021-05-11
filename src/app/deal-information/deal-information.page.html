@@ -14,18 +14,19 @@
     </div>
     <div class="information col-8">
       <div class="title">
-        <h4>{{produit?.product_name}}</h4>
+        <h4 *ngIf="produit">{{produit?.product_name}}</h4>
+        <h4 *ngIf="productDeal && produit === undefined">{{productDeal?.title}}</h4>
       </div>
 
       <div class="price row">
         <div class="finalPrice col">
-          <p>50 €</p>
+          <p>{{this.productDeal?.oldPrice}} €</p>
         </div>
         <div class="reduction col">
-          <p>50 %</p>
+          <p>{{this.productDeal?.salePercent}} %</p>
         </div>
         <div class="initialPrice col">
-          <p>100 €</p>
+          <p>{{this.productDeal?.price}} €</p>
         </div>
       </div>
 
@@ -42,7 +43,7 @@
       </div>
 
       <div class="author">
-        <p>Auteur: {{produit?.creator}}</p>
+        <p>Auteur: {{productDeal?.author}}</p>
       </div>
 
       <div class="goToDeal row">
