@@ -116,31 +116,4 @@ export class HomePage {
     })
 
   }
-
-
-  scanBRcode() {
-    this.scanner.scan().then(res => {
-      this.scannedBarCode = res.text;
-
-      this.homeService.searchProduct(this.scannedBarCode).subscribe((data: API) => {
-        this.response = data;
-        this.monProduit = this.response.product;
-        this.oui = true;
-      });
-      this.homeService.searchProduct(this.scannedBarCode).subscribe(res => {
-        console.log(res);
-      });
-    });
-  }
-
-  generateBarCode() {
-    this.scanner.encode(this.scanner.Encode.TEXT_TYPE, this.encodedData).then(
-      res => {
-        alert(res);
-        this.encodedData = res;
-      }, error => {
-        alert(error);
-      }
-    );
-  }
 }
