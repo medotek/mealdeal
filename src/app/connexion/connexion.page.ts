@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
-import {Platform} from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-connexion',
@@ -18,11 +18,25 @@ export class ConnexionPage implements OnInit {
               private authentication: AuthenticationService,
               private firebase: FirebaseX,
               private platform: Platform,
+              public navCtrl: NavController
               // private window: Window
   ) {
+    this.platform.ready().then(() => {
+      this.firebase.isUserSignedIn().then(() => {
+        this.router.navigate(['compte-infos']);
+      }).catch(r => {
+        console.log(r)
+      })
+    })
   }
 
   ngOnInit() {
+
+  }
+
+
+  popView(){
+    this.navCtrl.pop();
   }
 
   signUp(email, password){

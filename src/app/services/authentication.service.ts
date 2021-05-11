@@ -19,7 +19,8 @@ export class AuthenticationService {
   constructor(
     private firebase: FirebaseX,
     private platform: Platform
-  ) {}
+  ) {
+  }
 
   public getErrorCode() {
     return this.errorCode;

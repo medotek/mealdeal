@@ -20,6 +20,14 @@
     </ion-item>
   </ion-list>
 
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addDeals()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
@@ -27,12 +35,8 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addDeals()">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
+
 
 <ion-footer>
   <ion-toolbar>

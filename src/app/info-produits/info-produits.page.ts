@@ -5,7 +5,8 @@ import {HomeService} from '../services/home.service';
 import {Product} from '../interfaces/product';
 import {DealService} from "../entity/deal.service";
 import {Deal} from "../entity/deal";
-import {IonInfiniteScroll} from "@ionic/angular";
+import {IonInfiniteScroll, Platform} from "@ionic/angular";
+import {FirebaseX} from "@ionic-native/firebase-x/ngx";
 
 @Component({
   selector: 'app-info-produits',
@@ -32,8 +33,19 @@ export class InfoProduitsPage implements OnInit {
   public test = [''];
 
   constructor(private scanner: BarcodeScanner, private homeService: HomeService,
-              private dealService: DealService
+              private dealService: DealService,
+              private platform: Platform,
+              private firebase: FirebaseX
   ) {
+
+    this.platform.ready().then(() => {
+      this.firebase.isUserSignedIn().then(() => {
+        this.isUserLoggedIn = true
+      }).catch(r => {
+        console.log(r)
+        this.isUserLoggedIn = false
+      })
+    })
   }
 
   ngOnInit() {
