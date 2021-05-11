@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>compte-deals</ion-title>
+    <ion-title>Mes deals</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-tabs>
@@ -20,6 +20,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of getDeals()">
+      <app-deals-component [title]="item.title" [image]="item.image_id" [price]="item.price" [oldPrice]="item.old_price"
+                           [salePercent]="item.sale_percent" [vote]="item.vote" [dateCreation]="item.creation"
+                           [description]="item.description" [expired]="item.expired" [id]="item._id"></app-deals-component>
+    </ion-item>
+  </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addDeals()">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
