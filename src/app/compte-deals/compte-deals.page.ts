@@ -22,6 +22,8 @@ export class CompteDealsPage implements OnInit {
               private authService: AuthenticationService) {}
 
   ngOnInit() {
+    this.fetchCurrentUser();
+    this.fetchDeals();
   }
 
   ionViewWillEnter(){
