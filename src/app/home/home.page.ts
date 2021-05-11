@@ -1,7 +1,6 @@
 import { DealService } from './../entity/deal.service';
 import {DealPrototype} from './../class/deal-prototype';
 import {Deal} from './../interfaces/deal';
-import {DaoService} from './../services/dao.service';
 import {Component} from '@angular/core';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
@@ -33,7 +32,7 @@ export class HomePage {
   Deals: any = [];
 
   constructor(private platform: Platform,
-              private scanner: BarcodeScanner, 
+              private scanner: BarcodeScanner,
               private homeService: HomeService,
               private firebase: FirebaseX,
               private dealService: DealService,
@@ -45,7 +44,7 @@ export class HomePage {
       showTorchButton: true,
       showFlipCameraButton: true
     };
-    
+
     platform.ready().then(() => {
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
     }).then();
@@ -68,17 +67,6 @@ export class HomePage {
           console.log(r)
           //execute db queries
         )
-      // FirebasePlugin.authenticateUserWithEmailAndPassword(email, password, function(credential) {
-      //   console.log("Successfully authenticated with email/password");
-      //   FirebasePlugin.reauthenticateWithCredential(credential, function() {
-      //     console.log("Successfully re-authenticated");
-      //   }, function(error) {
-      //     console.error("Failed to re-authenticate", error);
-      //   });
-      //   // User is now signed in
-      // }, function(error) {
-      //   console.error("Failed to authenticate with email/password", error);
-      // });
     );
   }
 
@@ -126,8 +114,9 @@ export class HomePage {
         }
       })
     })
-  
+
   }
+
 
   scanBRcode() {
     this.scanner.scan().then(res => {

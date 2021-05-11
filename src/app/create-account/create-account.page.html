@@ -11,13 +11,8 @@
   <div class="container">
     <form>
       <ion-item lines="full">
-        <ion-label position="floating">Nom</ion-label>
-        <ion-input type="text" #name required></ion-input>
-      </ion-item>
-
-      <ion-item lines="full">
-        <ion-label position="floating">Prénom</ion-label>
-        <ion-input type="text" #firstname required></ion-input>
+        <ion-label position="floating">Nom d'utilisateur</ion-label>
+        <ion-input type="text" #nickname required></ion-input>
       </ion-item>
 
       <ion-item lines="full">
@@ -39,7 +34,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-button type="submit" (click)="createAccount(name, firstname, email, password, confirmPassword)" expand="block">Enregistrer</ion-button>
+          <ion-button type="submit" (click)="createAccount(nickname, email, password, confirmPassword)" expand="block">Enregistrer</ion-button>
         </ion-col>
       </ion-row>
     </form>
