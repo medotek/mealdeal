@@ -1,6 +1,8 @@
 import { Platform } from '@ionic/angular';
 import { Injectable, NgZone } from '@angular/core';
 import { FirebaseUser, FirebaseX } from '@ionic-native/firebase-x/ngx';
+import {User} from "../entity/user";
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,6 @@ export class AuthenticationService {
    // 0: not logged in (default)
    // 1: logged in
 
-  public user: FirebaseUser;
-
   constructor(
     private firebase: FirebaseX,
     private platform: Platform
@@ -28,10 +28,6 @@ export class AuthenticationService {
   public getErrorMessage() {
     return this.errorMessage;
   }
-  
-  public getUser() {
-    return this.user;
-  }
 
   // Success: return true
   // Error: return false 
@@ -39,7 +35,6 @@ export class AuthenticationService {
     this.platform.ready().then(r => {
       this.firebase.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-          this.user = userCredential.user;
           this.authenticationState = 1;
           this.errorCode = null;
           this.errorMessage = null;
@@ -50,5 +45,24 @@ export class AuthenticationService {
       })
     })
   }
+
   
+  logout() {
+    this.platform.ready().then(() =>
+      this.firebase.signOutUser().then(r => {
+        console.log(r);
+      })
+    );
+  }
+
+
+  getCurrentUser()  {
+    let fbu: FirebaseUser;
+    return this.firebase.getCurrentUser().then((data: FirebaseUser) => {
+        fbu = data;
+        return fbu;
+      }).catch((error) => {
+        return error;
+      })
+    }
 }

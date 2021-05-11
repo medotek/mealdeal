@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from '../services/home.service';
-import {DaoService} from '../services/dao.service';
 import {Deal} from '../interfaces/deal';
 import {IonInfiniteScroll, Platform} from '@ionic/angular';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
@@ -19,7 +18,7 @@ export class DealsPage implements OnInit {
   public test = [''];
   private result: any[] = [];
 
-  constructor(private homeService: HomeService, private dao: DaoService, private platform: Platform,
+  constructor(private homeService: HomeService, private platform: Platform,
               private firebase: FirebaseX,private dealService: DealService) {
     this.platform.ready().then(() =>
       this.firebase.setLanguageCode('fr').then(r => console.log(r))
