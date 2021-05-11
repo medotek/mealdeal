@@ -23,8 +23,8 @@ export class DealInformationPage implements OnInit {
         }, () => {console.log('not found');});
       }
 
-      if (params.id) {
-        this.dealService.getDeal(params.id).subscribe(r => {
+      if (params.idDeal) {
+        this.dealService.getDeal(params.idDeal).subscribe(r => {
           console.log(r);
           this.productDeal = r;
         });
