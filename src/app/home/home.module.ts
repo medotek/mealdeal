@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { HomePageRoutingModule } from './home-routing.module';
-import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -17,6 +16,7 @@ import { environment } from 'src/environments/environment';
   ],
   providers: [
     FirebaseX,
+    Window
   ],
   declarations: [HomePage]
 })

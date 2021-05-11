@@ -1,7 +1,4 @@
 import { DealService } from './../entity/deal.service';
-import {DealPrototype} from './../class/deal-prototype';
-import {Deal} from './../interfaces/deal';
-import {DaoService} from './../services/dao.service';
 import {Component} from '@angular/core';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HomeService} from '../services/home.service';
@@ -9,9 +6,6 @@ import {Welcome as API} from '../interfaces/welcome';
 import {Product} from '../interfaces/product';
 import {FirebaseX} from "@ionic-native/firebase-x/ngx";
 import { Platform } from '@ionic/angular';
-import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
-import {HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
 
 
 @Component({
@@ -37,7 +31,7 @@ export class HomePage {
               private homeService: HomeService,
               private firebase: FirebaseX,
               private dealService: DealService,
-              private http: HTTP) {
+              private window: Window) {
 
     this.encodedData = 'Programming isn\'t about what you know';
 
@@ -68,17 +62,6 @@ export class HomePage {
           console.log(r)
           //execute db queries
         )
-      // FirebasePlugin.authenticateUserWithEmailAndPassword(email, password, function(credential) {
-      //   console.log("Successfully authenticated with email/password");
-      //   FirebasePlugin.reauthenticateWithCredential(credential, function() {
-      //     console.log("Successfully re-authenticated");
-      //   }, function(error) {
-      //     console.error("Failed to re-authenticate", error);
-      //   });
-      //   // User is now signed in
-      // }, function(error) {
-      //   console.error("Failed to authenticate with email/password", error);
-      // });
     );
   }
 
@@ -117,16 +100,25 @@ export class HomePage {
   }
 
   isUserLogged() {
-    this.platform.ready().then(() => {
-      this.firebase.isUserSignedIn().then(r => {
-        if (r) {
-          this.isUserLoggedIn = true;
-        } else {
-          this.isUserLoggedIn = false;
-        }
+    let isSignedIn: string = this.window.localStorage.getItem("SignedIn");
+    if(this.window.localStorage.getItem("SignedIn")) {
+      if(isSignedIn = "1")
+        this.isUserLoggedIn = true;
+      else
+        this.isUserLoggedIn = false;
+    } else {
+      this.platform.ready().then(() => {
+        this.firebase.isUserSignedIn().then(r => {
+          if (r) {
+            this.isUserLoggedIn = true;
+            this.window.localStorage.setItem("SignedIn","1");
+          } else {
+            this.isUserLoggedIn = false;
+            this.window.localStorage.setItem("SignedIn","0");
+          }
+        })
       })
-    })
-  
+    }
   }
 
   scanBRcode() {

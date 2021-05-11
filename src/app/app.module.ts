@@ -1,14 +1,14 @@
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { HTTP } from '@ionic-native/http/ngx';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-
-import {environment} from '../environments/environment';
+import { FirebasePlugin } from 'plugins/cordova-plugin-firebasex/types';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,9 +19,9 @@ import {environment} from '../environments/environment';
     AppRoutingModule,
   ],
   providers: [
-    HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    BarcodeScanner
+    BarcodeScanner,
+    FirebaseX
   ],
   bootstrap: [AppComponent],
 })

@@ -1,7 +1,5 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import {FirebaseX} from '@ionic-native/firebase-x/ngx';
-import {Platform} from '@ionic/angular';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-account',
@@ -10,31 +8,23 @@ import {Router} from '@angular/router';
 })
 export class CreateAccountPage implements OnInit {
 
-  erreurPassword = false;
-  erreurMail = false;
+  differentPassword = false;
 
   constructor(
-    private router: Router,
-    private firebase: FirebaseX,
-    private platform: Platform) { }
+    private auth: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   createAccount(name, firstname, email, password, confirmPassword) {
     if (password.value === confirmPassword.value) {
-      this.erreurPassword = false;
-      this.platform.ready().then(r =>
-        this.firebase.createUserWithEmailAndPassword(email.value, password.value).then(res => {
-          this.erreurMail = false;
-          this.router.navigate(['/home']);
-          //execute db queries
-        }, () => {
-          this.erreurMail = true;
-          alert('L\'adresse mail est déjà utilisé !');
-        }));
+      this.differentPassword = false;
+
+      this.auth.createAccount(email.value, password.value);
+      if(this.auth.getErrorCode())
+        alert(this.auth.getErrorMessage());
     } else {
-      this.erreurPassword = true;
+      this.differentPassword = true;
       alert('Les mots de passes ne sont pas identiques !');
     }
   }
